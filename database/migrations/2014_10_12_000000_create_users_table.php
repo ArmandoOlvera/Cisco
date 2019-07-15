@@ -66,6 +66,7 @@ class CreateUsersTable extends Migration
           $table->increments('id');
           $table->integer('id_academia')->unsigned()->nullable();
           $table->string('nombre',100);
+       $table->string('apellido',100);
           $table->string('telefono',60);
           $table->string('email',60);
           $table->boolean('condicion')->default(1);

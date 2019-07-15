@@ -32,9 +32,7 @@
 
 
 <template v-if="menu==5">
-  <h1>
-    Instructores
-  </h1>
+  <instructores-component></instructores-component>
 </template>
 
 <template v-if="menu==6">

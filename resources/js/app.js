@@ -29,6 +29,9 @@ Vue.component('usuarios-component', require('./components/UsuariosComponent.vue'
 Vue.component('academias-component', require('./components/AcademiasComponent.vue').default);
 //Para ver las acadenuas
 Vue.component('materias-component', require('./components/MateriasComponent.vue').default);
+
+//Para ver las acadenuas
+Vue.component('instructores-component', require('./components/InstructoresComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

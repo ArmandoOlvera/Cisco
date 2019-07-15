@@ -13,7 +13,7 @@
                                         <i class="pe-7s-rocket icon-gradient bg-mean-fruit">
                                         </i>
                                     </div>
-                                    <div>Pantalla de Usuarios 
+                                    <div>Pantalla de Instructores 
                                       
                                         <div class="page-title-subheading">Bienvenido
                                          
@@ -27,14 +27,14 @@
                     <div class="col-lg-12">
                  
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Tabla de Usuarios</h5>
+                                    <div class="card-body"><h5 class="card-title">Tabla de Instructores</h5>
                                       
                                       
 
 <!-- Button trigger modal -->
-<button type="button" @click="abrirModal('usuario','registrar')" class="mb-2 mr-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dimiss="modal"  data-backdrop="false">
+<button type="button" @click="abrirModal('instructor','registrar')" class="mb-2 mr-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dimiss="modal"  data-backdrop="false">
  Nuevo
-  <span class="badge badge-light">USUARIO</span>
+  <span class="badge badge-light">INSTRUCTOR</span>
 </button>
                                       <!--------------BARRA DE BUSQUEDA----------------->
                                       <br>
@@ -52,8 +52,8 @@
                                           <div class="col-mb-8" style="position: relative;">
                                         <div class="search-wrapper active">
                                           <div class="input-holder">
-                                            <input type="text" v-model="buscar" @keyup.enter="listarUsuarios(1,buscar,criterio)" placeholder="Escriba para buscar registros" class="search-input">
-                                            <button  type="submit" class="search-icon" @click="listarUsuarios(1,buscar,criterio)">
+                                            <input type="text" v-model="buscar" @keyup.enter="listarInstructores(1,buscar,criterio)" placeholder="Escriba para buscar registros" class="search-input">
+                                            <button  type="submit" class="search-icon" @click="listarInstructores(1,buscar,criterio)">
                                               <span>
                                               </span>
                                             </button>
@@ -70,53 +70,39 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Herramientas</th>
-                                                     <th>Rol</th>
+                                                     <th>Academia</th>
                                                     <th>Nombre</th>
                                                   <th>Apellidos</th>
-                                                    <th>Telefono</th>
-                                                  <th>Extension</th>
-                                                    <th>Email</th>
-                                                  <th>Pais</th>
-                                                  <th>Cargo</th>
-                                                  <th>Idioma</th>
+                                                    <th>Telefono</th> 
+                                                    <th>Email</th> 
                                                    <!----- <th>Contraseña</th>--->
                                                     <th>Condición</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr v-for=" usuario in arrayUsuarios" :key="usuario.id">
+                                                <tr v-for=" instructor in arrayInstructor" :key="instructor.id">
                                                      <th scope="row">
-                                                       <template v-if="usuario.condicion">
-                                      <button type="button" class="mb-2 mr-2 btn btn-success"  @click="desactivarUsuario(usuario.id)"><i class="pe-7s-sun"> </i>Desactivar </button> 
+                                                       <template v-if="instructor.condicion">
+                                      <button type="button" class="mb-2 mr-2 btn btn-success"  @click="desactivarInstructor(instructor.id)"><i class="pe-7s-sun"> </i>Desactivar </button> 
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
                                         <template v-else>
- <button type="button" class="mb-2 mr-2 btn btn-danger"  @click="activarUsuario(usuario.id)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use trash"></i>Activar</button>
+ <button type="button" class="mb-2 mr-2 btn btn-danger"  @click="activarInstructor(instructor.id)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use trash"></i>Activar</button>
                                             
                                         </template>
                                                      
-                                                      <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('usuario','actualizar', usuario)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Modificar</button>
+                                                      <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('instructor','actualizar', instructor)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Modificar</button>
                                                     </th>
-                                                    <td  >
-                                                   <div v-if="usuario.idrol == 1">
-                                                         Administrador
-                                                        </div>
-                                                        <div v-else>
-                                                         Contacto Principal
-                                                        </div>
-                                                      </td>
-                                                  <td v-text="usuario.nombre"> </td>
- <td v-text="usuario.apellido"> </td>
-                                                    <td v-text="usuario.telefono"> </td>
- <td v-text="usuario.extension"> </td>
-                                                     <td v-text="usuario.email"> </td>
- <td v-text="usuario.pais"> </td>
- <td v-text="usuario.cargo"> </td>
- <td v-text="usuario.idioma"> </td>
+                                                    <td v-text="instructor.nombre_academia"> </td>
+                                                  <td v-text="instructor.nombre"> </td>
+                        <td v-text="instructor.apellido"> </td>
+                                                    <td v-text="instructor.telefono"> </td> 
+                                                     <td v-text="instructor.email"> </td>
+ 
                                                    <!----  <td v-text="usuario.password"> </td>---->
                                                    <td  >
-                                                   <div v-if="usuario.condicion == 1">
+                                                   <div v-if="instructor.condicion == 1">
                                                         <a href="javascript:void(0);" class="mb-2 mr-2 badge badge-success">Activo</a>
                                                         </div>
                                                         <div v-else>
@@ -166,12 +152,12 @@
                     <div class="modal-body">
                                     <div class="form-row">
                                         <div class="col-md-4 mb-3"> 
-                                            <label for="rol" class="">Select</label>
+                                            <label for="rol" class="">Academia</label>
                                           <template>
-                                           <select v-model="idrol"  class="form-control">
+                                           <select v-model="id_academia"  class="form-control">
                                               <option value="0" :selected="true" >Selecciona una opción</option>
-                                                <option v-for="option in options" v-bind:value="option.value">
-                                                  {{ option.text }}
+                                                <option v-for="instructor in arrayInstructor" v-bind:value="instructor.id_academia"  v-text="instructor.nombre_academia">
+                                                 
                                                 </option>
                                               </select> 
                                           </template>
@@ -205,10 +191,6 @@
                                         </div>
                                         
                                     </div>
-                      
-                      
-                      
-                      
                        <div class="form-row">
                          <div class="col-md-3 mb-3">
                                             <label for="validationCustom02">Telefono</label>
@@ -222,90 +204,22 @@
                                         </div>
                          
                          <div class="col-md-3 mb-3">
-                                            <label for="validationCustom02">Extension</label>
-                                            <input type="text" class="form-control" id="extension" v-model="extension" placeholder="Ej: extension"  maxlength="10" required="">
+                                            <label for="validationCustom02">Email</label>
+                                            <input type="email" class="form-control" id="email" v-model="email" placeholder="Ej: ejemplo@ejemplo.com"    required="">
                                             <div class="valid-feedback">
                                                Correcto!
                                             </div>
                                            <div class="invalid-feedback">
                                                Porfavor ingrese una extension.
                                             </div>
-                                        </div>
-                         <div class="col-md-3 mb-3"> 
-                                            <label for="rol" class="">Idioma</label>
-                                          <template>
-                                           <select v-model="idioma"  class="form-control">
-                                              
-                                                 <option value="Espanol"  :selected="true" >Español</option>
-                                                       <option value="Ingles"   >Ingles</option>
-                                                <option value="Mandarin"   >Mandarín</option>
-                                             
-                                              </select> 
-                                          </template> 
-                                        </div>
-                          <div class="col-md-3 mb-3"> 
-                                            <label for="rol" class="">Cargo</label>
-                                          <template>
-                                           <select v-model="cargo"  class="form-control"> 
-                                                 <option value="Docente"  :selected="true" >Docente</option>
-                                                       <option value="Rector"   >Rector</option>
-                                                <option value="Director"   >Director</option>
-                                             
-                                              </select> 
-                                          </template> 
-                                        </div>
-                      </div>
-                      
-                      
-                      
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-3">
-                                            <label for="validationCustom03">Email</label>
-                                            <input type="email" class="form-control" id="email" v-model="email" placeholder="Ej: hola@ejemplo.com" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                                Por favor ingrese un correo electronico correcto.
-                                            </div>
-                                        </div>
-                                       <div class="col-md-3 mb-3">
-                                            <label for="validationCustom03">Pais</label>
-                                            <input type="text" class="form-control" id="pais" v-model="pais" placeholder="Ej: pais" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                                 Porfavor ingrese un pais.
-                                            </div>
-                                        </div>
-                                       <div class="col-md-3 mb-3">
-                                            <label for="validationCustom04">Usuario</label>
-                                            <input type="text" class="form-control" id="usuario" v-model="usuario" placeholder="Usuario" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                               Porfavor ingrese un Usuario.
-                                            </div>
                                         </div> 
-                                        <div class="col-md-3 mb-3">
-                                            <label for="validationCustom04">Contraseña</label>
-                                            <input type="password" class="form-control" id="password" v-model="password" placeholder="Contraseña" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                               Porfavor ingrese una contraseña.
-                                            </div>
-                                        </div> 
-                                    </div>  
+                      </div>  
                                           </div>
                   
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"  @click="cerrarModal()" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="registrarUsuario()" >Guardar</button>
-              <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarUsuario()" >Actualizar</button>
+                <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="registrarInstructor()" >Guardar</button>
+              <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarInstructor()" >Actualizar</button>
             </div>
           
           
@@ -336,8 +250,10 @@
       { text: 'Contacto Principal', value: '2' },
       
     ],
+        
         nombre: '',
-        idrol: 0,
+        id_academia: 0,
+         id: 0,
         telefono: '',
         email: '',
         usuario: '',
@@ -348,7 +264,7 @@
         extension:'',
         idioma:'',
         cargo:'',
-        arrayUsuarios: [],
+        arrayInstructor: [],
         modal:0,
         tituloModal:'',
         tipoAccion:0,
@@ -397,13 +313,13 @@
         },
     
     methods: {
-      listarUsuarios(page,buscar,criterio) {
+      listarInstructores(page,buscar,criterio) {
         let me = this;
-        var url= '/usuario?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;;
+        var url= '/instructor?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
         axios.get(url).then(function(response) {
-          //me.arrayUsuarios=response.data;
+          //me.arrayInstructor=response.data;
             var respuesta= response.data;
-                    me.arrayUsuarios = respuesta.usuarios.data; 
+                    me.arrayInstructor = respuesta.instructores.data; 
             me.pagination= respuesta.pagination;
           })
           .catch(function(error) {
@@ -411,7 +327,7 @@
             console.log(error);
           });
       },
-      activarUsuario(id){
+      activarInstructor(id){
          const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success',
@@ -421,7 +337,7 @@
 })
 
 swalWithBootstrapButtons.fire({
-  title: 'Estas seguro de acttivar el usuario?',
+  title: 'Estas seguro de acttivar el instructor?',
   text: "Puedes cambiar esto después",
   type: 'warning',
   showCancelButton: true,
@@ -431,11 +347,11 @@ swalWithBootstrapButtons.fire({
 }).then((result) => {
   
   if (result.value) {
-    let me = this;
-                    axios.put('/usuario/activar',{
+    let me = this;           
+                    axios.put('/instructor/activar',{
                         'id': id
                     }).then(function (response) {
-                         me.listarUsuarios(1,'','nombre');
+                         me.listarInstructores(1,'','nombre');
                         swal(
                         'Activado!',
                         'El registro ha sido activado con éxito.',
@@ -446,7 +362,7 @@ swalWithBootstrapButtons.fire({
                     });
     swalWithBootstrapButtons.fire(
       'Activado!',
-      'El usuario ha sido activado.',
+      'El instructor ha sido activado.',
       'success'
     )
   } else if (
@@ -463,7 +379,7 @@ swalWithBootstrapButtons.fire({
   }
 })
             },
-      desactivarUsuario(id){
+      desactivarInstructor(id){
          const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success',
@@ -473,7 +389,7 @@ swalWithBootstrapButtons.fire({
 })
 
 swalWithBootstrapButtons.fire({
-  title: 'Estas seguro de desactivar el usuario?',
+  title: 'Estas seguro de desactivar el instructor?',
   text: "Puedes volver a activarlo despuès",
   type: 'warning',
   showCancelButton: true,
@@ -484,10 +400,10 @@ swalWithBootstrapButtons.fire({
   
   if (result.value) {
     let me = this;
-                    axios.put('/usuario/desactivar',{
+                    axios.put('/instructor/desactivar',{
                         'id': id
                     }).then(function (response) {
-                        me.listarUsuarios(1,'','nombre');
+                        me.listarInstructores(1,'','nombre');
                         swal(
                         'Activado!',
                         'El registro ha sido activado con éxito.',
@@ -498,7 +414,7 @@ swalWithBootstrapButtons.fire({
                     });
     swalWithBootstrapButtons.fire(
       'Desactivado!',
-      'El usuario ha sido desactivado.',
+      'El instructor ha sido desactivado.',
       'success'
     )
   } else if (
@@ -521,50 +437,40 @@ swalWithBootstrapButtons.fire({
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarUsuarios(page,buscar,criterio);
+                me.listarInstructores(page,buscar,criterio);
             },
-       actualizarUsuario(){
+       actualizarInstructor(){
              
                 let me = this;
 console.log(this.nombre);
-                axios.put('/usuario/actualizar',{ 
-                     'idrol': this.idrol,
-                   'id': this.usuario_id,
-                  'usuario':this.usuario,
+                axios.put('/instructor/actualizar',{ 
+                     'id_academia': this.id_academia,
+                   'id': this.id, 
                     'nombre': this.nombre,
                     'telefono': this.telefono,
-                    'email': this.email,
-                    'password': this.password,
+                    'email': this.email, 
                    'apellido': this.apellido,
-        'pais': this.pais,
-        'extension':this.extension,
-        'idioma':this.idioma,
-        'cargo': this.cargo,
+     
                 }).then(function (response) {
                     me.cerrarModal();
-                  me.listarUsuarios(1,'','nombre');
+                  me.listarInstructores(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
               
-      registrarUsuario(){
+      registrarInstructor(){
                 let me = this;
-                axios.post('/usuario/registrar',{
-                    'idrol': this.idrol,
-                  'usuario':this.usuario,
+                axios.post('/instructor/registrar',{
+                 'id_academia': this.id_academia,
+                   'id': this.id, 
                     'nombre': this.nombre,
                     'telefono': this.telefono,
-                    'email': this.email,
-                    'password': this.password,
-                  'apellido': this.apellido,
-        'pais': this.pais,
-        'extension':this.extension,
-        'idioma':this.idioma,
-        'cargo': this.cargo,
+                    'email': this.email, 
+                   'apellido': this.apellido,
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarUsuarios(1,'','nombre');
+                    me.listarInstructores(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -581,11 +487,11 @@ console.log(this.nombre);
             },
       abrirModal(modelo, accion, data = []) {
         switch (modelo) {
-          case "usuario": {
+          case "instructor": {
              switch(accion){
               case 'registrar':{
                 this.modal=1;
-                this.idrol=0;
+                this.id_academia=0;
                 this.nombre='';
                 this.telefono='';
                 this.email='';
@@ -597,25 +503,20 @@ console.log(this.nombre);
         this.cargo='';
         this.idioma='';
                 this.tipoAccion = 1;
-                this.tituloModal='Registrar Usuario'
+                this.tituloModal='Registrar Instructor'
                 break;
               }
               case 'actualizar':{
                 console.log(data['nombre']);
                                 this.modal=1;
-                                this.tituloModal='Actualizar usuario';
+                                this.tituloModal='Actualizar Instructor';
                                 this.tipoAccion=2;
-                                this.usuario_id=data['id'];
-                                this.idrol=data['idrol'];
-                this.telefono=data['telefono'];
-                this.usuario=data['usuario'];
+                                this.id=data['id'];
+                                this.id_academia=data['id_academia'];
+                this.telefono=data['telefono']; 
                 this.nombre=data['nombre'];
                 this.email=data['email'];
-                    this.apellido=data['apellido'];
-        this.pais=data['pais'];
-        this.extension=data['extension'];
-        this.cargo=data['cargo'];
-        this.idioma=data['idioma'];
+                    this.apellido=data['apellido']; 
                 this.password='';  
                                 break;
               } 
@@ -625,7 +526,7 @@ console.log(this.nombre);
       }
     },
     mounted() {
-      this.listarUsuarios(1,this.buscar,this.criterio);
+      this.listarInstructores(1,this.buscar,this.criterio);
       var id = document.getElementById("id").value;
       var nombre = document.getElementById("nombre").value;
       console.log('Component mounted, el usuario es ' + nombre + " con el id " + id);
