@@ -47,6 +47,15 @@ class AcademiaController extends Controller
     
     }
   
+  public function selectAcademias(Request $request){
+     if (!$request->ajax()) return redirect('/');
+      $academias = Academias::where('condicion','=','1')
+        ->select('id','nombre')->orderBy('nombre','asc')->get();
+    
+    return ['academias' => $academias];
+  }
+  
+  
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

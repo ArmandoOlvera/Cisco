@@ -22,11 +22,15 @@
                                 <div class="card mb-3 widget-content bg-midnight-bloom">
                                     <div class="widget-content-wrapper text-white">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Total Orders</div>
-                                            <div class="widget-subheading">Last year expenses</div>
+                                            <div class="widget-heading">Usuarios Activos</div>
+                                            <div class="widget-subheading">Usuarios activos con acceso al sistema</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span>1896</span></div>
+                                            <div class="widget-numbers text-white">
+                                             <template>
+                                                <span v-model="varcantidad" v-text="varcantidad"></span>
+                                              </template>
+  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -229,6 +233,25 @@
                                     </div>
                                 </div>
                             </div>
+                          
+                          <div class="col-md-6 col-lg-6">
+                            <div class="card-header-tab card-header-tab-animation card-header">
+                                        <div class="card-header-title">
+                                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                                          Usuarios registrados en el ultimo mes
+                                        </div> 
+                                    </div>
+                            <div class="card mb-12 widget-chart widget-chart2 text-left w-100">
+                                                    <div class="widget-chat-wrapper-outer">
+                                                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                                           <canvas id="chart1"   ></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                              
+                            </div>
+                          
+                          
                         </div>
                       
   
@@ -237,10 +260,84 @@
 </div>
 </template>
 
+</script>
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+  export default {
+    data() {
+      return {
+       varTotal:null,
+                charTotal:null,
+                cuenta:[],
+                varTotalTotal:[],
+                varMesTotal:[],
+        cantidad:[],
+        varcantidad:[],
+      }
+    },
+    methods: {
+      getTotal(){
+                let me=this;
+                var url= '/dashboard';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.cuenta = respuesta.ingreso;
+                    //cargamos los datos del chart
+                  me.cantidad= respuesta.usuarios;
+                     console.log('entr');
+                  console.log(me.cantidad);
+                  me.loadTotal();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+      
+       loadTotal(){
+         
+                let me=this;
+         console.log(me.cuenta);
+         me.cantidad.map(function(x){
+                    me.varcantidad.push(x.activos);
+                });
+         me.cuenta.map(function(x){
+                  
+                    me.varMesTotal.push(x.mes);
+                    me.varTotalTotal.push(x.total);
+                });
+          console.log('reparto000');
+          console.log(me.varcantidad);
+                me.varTotal=document.getElementById('chart1').getContext('2d');
+         console.log('reparto');
+console.log(me.varMesTotal);
+         console.log('reparto2');
+         console.log(me.varTotalTotal);
+                me.charTotal = new Chart(me.varTotal, {
+                    type: 'bar',
+                    data: {
+                        labels: me.varMesIngreso,
+                        datasets: [{
+                            label: 'Usuarios',
+                            data: me.varTotalTotal,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+    },
+    mounted() {
+      this.getTotal();//console.log('Component mounted.')
+      
     }
+  }
 </script>

@@ -22,6 +22,7 @@ window.onerror=silentErrorHandler;
   border-width: 5px;
 }
   </style>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" rel="stylesheet"> 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

@@ -45,20 +45,20 @@ Route::group(['middleware'=>['auth']],function(){
   Route::group(['middleware'=>['ContactoPrincipal']],function(){
     
   });*/
-  //Poner aqui los enlaces de los usuarios logeados!!
+  //Poner aqui los enlaces de los usuarios logeados!!  selectContactos
     Route::get('/usuario', 'UsuariosController@index');
     Route::post('/usuario/registrar', 'UsuariosController@store');
       Route::put('/usuario/actualizar', 'UsuariosController@update');
       Route::put('/usuario/desactivar', 'UsuariosController@desactivar');
       Route::put('/usuario/activar', 'UsuariosController@activar');
-  
+   Route::get('/usuario/selectUsuarios', 'UsuariosController@selectContactos');
   //SEccion de las academias
   Route::get('/academia', 'AcademiaController@index');
     Route::post('/academia/registrar', 'AcademiaController@store');
       Route::put('/academia/actualizar', 'AcademiaController@update');
       Route::put('/academia/desactivar', 'AcademiaController@desactivar');
       Route::put('/academia/activar', 'AcademiaController@activar');
-  
+  Route::get('/academia/selectAcademias', 'AcademiaController@selectAcademias');
   
   //SEccion de las materias
   Route::get('/materia', 'MateriasController@index');
@@ -73,6 +73,9 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/instructor/actualizar', 'InstructoresController@update');
       Route::put('/instructor/desactivar', 'InstructoresController@desactivar');
       Route::put('/instructor/activar', 'InstructoresController@activar');
+  
+  //Dashboard general
+   Route::get('/dashboard', 'DashboardController');
 });
 
 //solo para debugear por ahora, quitar despues

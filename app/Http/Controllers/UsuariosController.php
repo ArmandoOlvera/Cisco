@@ -39,6 +39,15 @@ class UsuariosController extends Controller
     
     }
   
+   public function selectContactos(Request $request){
+    // if (!$request->ajax()) return redirect('/');
+      $usuarios = Usuarios::where('condicion','=','1')
+        ->select('id','nombre')->orderBy('nombre','asc')->get();
+    
+    return ['usuarios' => $usuarios];
+  }
+  
+  
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

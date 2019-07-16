@@ -165,7 +165,7 @@
                                           <template>
                                            <select v-model="id_usuario"   class="form-control"> 
                                              <option value="0" :selected="true" >Selecciona una opción</option>
-                                                <option   v-for=" academia in arrayAcademias" :key="academia.id" v-bind:value="academia.id_usuario" v-text="academia.nombre_users">
+                                                <option   v-for=" usuario in arrayUsuarios" :key="usuario.id" v-bind:value="usuario.id" v-text="usuario.nombre">
                                                  
                                                 </option>
                                               </select> 
@@ -331,6 +331,7 @@
         tituloModal:'',
         tipoAccion:0,
         usuario_id:0,
+        arrayUsuarios:[],
          pagination : {
                     'total' : 0,
                     'current_page' : 0,
@@ -440,6 +441,18 @@ swalWithBootstrapButtons.fire({
     )
   }
 })
+            },
+      selectUsuarios(){
+                let me=this;
+                var url= '/usuario/selectUsuarios';
+                axios.get(url).then(function (response) {
+                    console.log(response);
+                    var respuesta= response.data;
+                    me.arrayUsuarios = respuesta.usuarios;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             },
       desactivarAcademia(id){
          const swalWithBootstrapButtons = Swal.mixin({
@@ -607,6 +620,7 @@ console.log(this.nombre);
       }
     },
     mounted() {
+      this.selectUsuarios();
       this.listarAcademias(1,this.buscar,this.criterio);
       var id = document.getElementById("id").value;
       var nombre = document.getElementById("nombre").value;

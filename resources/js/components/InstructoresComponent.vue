@@ -156,7 +156,7 @@
                                           <template>
                                            <select v-model="id_academia"  class="form-control">
                                               <option value="0" :selected="true" >Selecciona una opción</option>
-                                                <option v-for="instructor in arrayInstructor" v-bind:value="instructor.id_academia"  v-text="instructor.nombre_academia">
+                                                <option v-for="acaedmia in arrayAcademias" v-bind:value="acaedmia.id"  v-text="acaedmia.nombre">
                                                  
                                                 </option>
                                               </select> 
@@ -268,6 +268,7 @@
         modal:0,
         tituloModal:'',
         tipoAccion:0,
+        arrayAcademias:[],
         usuario_id:0,
          pagination : {
                     'total' : 0,
@@ -431,7 +432,18 @@ swalWithBootstrapButtons.fire({
   }
 })
             }
-      ,
+      ,selectAcademias(){
+                let me=this;
+                var url= '/academia/selectAcademias';
+                axios.get(url).then(function (response) {
+                    //console.log(response);
+                    var respuesta= response.data;
+                    me.arrayAcademias = respuesta.academias;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
       cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la página actual
@@ -526,6 +538,7 @@ console.log(this.nombre);
       }
     },
     mounted() {
+      this.selectAcademias();
       this.listarInstructores(1,this.buscar,this.criterio);
       var id = document.getElementById("id").value;
       var nombre = document.getElementById("nombre").value;
