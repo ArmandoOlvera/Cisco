@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
            $table->string('telefono',20);
         $table->string('extension',20); 
         $table->string('idioma',20);
+           $table->boolean('oc')->default(1);;
             $table->string('email',50);
         $table->string('usuario')->unique();;
           $table->string('password',64);
@@ -90,7 +91,8 @@ class CreateUsersTable extends Migration
           $table->integer('id_instructor')->unsigned()->nullable();
           $table->string('status',100);
           $table->date('fecha_inicio');
-          $table->date('fecha_termino');
+         $table->string('hora_preferida',50); 
+          $table->date('fecha_oc');
           $table->boolean('condicion')->default(1);
           $table->timestamps(); 
        
