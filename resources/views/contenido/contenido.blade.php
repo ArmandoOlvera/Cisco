@@ -25,9 +25,9 @@
 
 
 <template v-if="menu==4">
-  <h1>
-    Grupos
-  </h1>
+  
+    <grupos-component></grupos-component>
+   
 </template>
 
 
@@ -41,9 +41,8 @@
 
 
 <template v-if="menu==7">
-  <h1>
-    Alumnos
-  </h1>
+
+  <tickets-component></tickets-component>
 </template>
 
           @elseif(Auth::user()->idrol==2)
@@ -61,9 +60,7 @@
 </template>
 
 <template v-if="menu==7">
-  <h1>
-    Alumnos
-  </h1>
+  <tickets-component></tickets-component>
 </template>
 
 

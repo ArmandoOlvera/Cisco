@@ -22,6 +22,11 @@ window.onerror=silentErrorHandler;
   border-width: 5px;
 }
   </style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<link href="chat.css" rel="stylesheet">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" rel="stylesheet"> 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -52,6 +57,7 @@ window.onerror=silentErrorHandler;
     <div id="app">
      <input id="nombre" name="nombre" type="text" value="{{Auth::user()->nombre}}">
       <input id="id" name="id" type="text" value="{{Auth::user()->id}}">
+      <input id="rol" name="rol" type="text" value="{{Auth::user()->idrol}}">
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">

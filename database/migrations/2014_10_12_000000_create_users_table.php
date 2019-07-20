@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
            $table->string('telefono',20);
         $table->string('extension',20); 
         $table->string('idioma',20);
-           $table->boolean('oc')->default(1);;
+           $table->boolean('oc')->default(0);;
             $table->string('email',50);
         $table->string('usuario')->unique();;
           $table->string('password',64);
@@ -83,12 +83,23 @@ class CreateUsersTable extends Migration
           $table->boolean('condicion')->default(1);
           $table->timestamps();  
         });
+     
+       //se crea la tabla de grupos
+     Schema::create('grupos', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('nombre',100); 
+          $table->string('descripcion',60);
+          $table->boolean('condicion')->default(1);
+          $table->timestamps(); 
+      
+        });
       //se crea la tabla de historial
      Schema::create('historial', function (Blueprint $table) {
           $table->increments('id');
        $table->integer('id_academia')->unsigned()->nullable();
           $table->integer('id_materia')->unsigned()->nullable();
           $table->integer('id_instructor')->unsigned()->nullable();
+        $table->integer('id_grupo')->unsigned()->nullable();
           $table->string('status',100);
           $table->date('fecha_inicio');
          $table->string('hora_preferida',50); 
@@ -96,6 +107,7 @@ class CreateUsersTable extends Migration
           $table->boolean('condicion')->default(1);
           $table->timestamps(); 
        
+           $table->foreign('id_grupo')->references('id')->on('grupos')->onDelete('cascade'); 
          $table->foreign('id_academia')->references('id')->on('academia')->onDelete('cascade');
        $table->foreign('id_materia')->references('id')->on('materia')->onDelete('cascade');
        $table->foreign('id_instructor')->references('id')->on('instructor')->onDelete('cascade');

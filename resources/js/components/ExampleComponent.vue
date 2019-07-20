@@ -283,8 +283,7 @@
                     me.cuenta = respuesta.ingreso;
                     //cargamos los datos del chart
                   me.cantidad= respuesta.usuarios;
-                     console.log('entr');
-                  console.log(me.cantidad);
+                   
                   me.loadTotal();
                 })
                 .catch(function (error) {
@@ -295,7 +294,7 @@
        loadTotal(){
          
                 let me=this;
-         console.log(me.cuenta);
+      //   console.log(me.cuenta);
          me.cantidad.map(function(x){
                     me.varcantidad.push(x.activos);
                 });
@@ -304,13 +303,13 @@
                     me.varMesTotal.push(x.mes);
                     me.varTotalTotal.push(x.total);
                 });
-          console.log('reparto000');
-          console.log(me.varcantidad);
+         // console.log('reparto000');
+       //   console.log(me.varcantidad);
                 me.varTotal=document.getElementById('chart1').getContext('2d');
-         console.log('reparto');
-console.log(me.varMesTotal);
-         console.log('reparto2');
-         console.log(me.varTotalTotal);
+        // console.log('reparto');
+//console.log(me.varMesTotal);
+       //  console.log('reparto2');
+     //    console.log(me.varTotalTotal);
                 me.charTotal = new Chart(me.varTotal, {
                     type: 'bar',
                     data: {

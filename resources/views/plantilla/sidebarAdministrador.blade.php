@@ -209,6 +209,13 @@
                                         Materias
                                   </a>
                                 </li>
+                              <li  @click="menu=7">
+                              
+                                    <a  >
+                                        <i class="metismenu-icon  "> <i class="fa fa-fw" aria-hidden="true" title="Copy to use commenting"></i></i>
+                                        Mensajes
+                                  </a>
+                                </li>
                           <!---    <li  @click="menu=7">
                               
                                     <a  >

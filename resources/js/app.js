@@ -25,13 +25,18 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 //COmponentes para los usuarios
 //Para ver los usuarios
 Vue.component('usuarios-component', require('./components/UsuariosComponent.vue').default);
-//Para ver las acadenuas
+//Para ver las academias
 Vue.component('academias-component', require('./components/AcademiasComponent.vue').default);
-//Para ver las acadenuas
+//Para ver las materias
 Vue.component('materias-component', require('./components/MateriasComponent.vue').default);
+//Para ver los grupos
+Vue.component('grupos-component', require('./components/GruposComponent.vue').default);
 
-//Para ver las acadenuas
+//Para ver los instructores
 Vue.component('instructores-component', require('./components/InstructoresComponent.vue').default);
+
+//Para ver los tickets
+Vue.component('tickets-component', require('./components/TicketsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

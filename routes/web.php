@@ -52,6 +52,7 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/usuario/desactivar', 'UsuariosController@desactivar');
       Route::put('/usuario/activar', 'UsuariosController@activar');
    Route::get('/usuario/selectUsuarios', 'UsuariosController@selectContactos');
+   Route::get('/usuario/selectUsuarios2', 'UsuariosController@selectContactos2');
   //SEccion de las academias
   Route::get('/academia', 'AcademiaController@index');
     Route::post('/academia/registrar', 'AcademiaController@store');
@@ -74,6 +75,21 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/instructor/desactivar', 'InstructoresController@desactivar');
       Route::put('/instructor/activar', 'InstructoresController@activar');
   
+  
+  //Seccion para los grupos
+  Route::get('/grupos', 'GruposController@index');
+  
+  //SEccion de los tickets de mensajes admin-contacto_principal
+  Route::get('/ticket', 'TicketsController@index');
+   Route::get('/ticket/getMensaje', 'TicketsController@index2');
+  Route::get('/ticket/getMensaje2', 'TicketsController@index3');
+    Route::post('/ticket/registrar', 'TicketsController@store');
+   Route::post('/ticket/registrarMensaje', 'TicketsController@store2');
+      Route::put('/ticket/actualizar', 'TicketsController@update');
+      Route::put('/ticket/desactivar', 'TicketsController@desactivar');
+   Route::put('/ticket/desactivar2', 'TicketsController@desactivar2');
+      Route::put('/ticket/activar', 'TicketsController@activar');
+  
   //Dashboard general
    Route::get('/dashboard', 'DashboardController');
 });
@@ -81,7 +97,8 @@ Route::group(['middleware'=>['auth']],function(){
 //solo para debugear por ahora, quitar despues
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::post('/logout','Auth\LoginController@logout')->name('logout');
-
+Route::get('/','Auth\LoginController@showLoginForm'); 
+  Route::post('/login','Auth\LoginController@login')->name('login');
 //Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 

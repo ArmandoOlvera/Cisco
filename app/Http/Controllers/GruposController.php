@@ -3,59 +3,52 @@
 namespace App\Http\Controllers;
 //use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Usuarios;
+use App\Grupos;
 
 
-class UsuariosController extends Controller
+class GruposController extends Controller
 {
     //
   public function index(Request $request)
     {
     // if (!$request->ajax()) return redirect('/');
-      $usuarios = Usuarios::paginate(2);
+      $grupos = Grupos::paginate(2);
   
     #
      $buscar = $request->buscar;
         $criterio = $request->criterio;
          
         if ($buscar==''){
-            $usuarios = Usuarios::orderBy('id', 'desc')->paginate(3);
+            $grupos = Grupos::orderBy('id', 'desc')->paginate(3);
         }
         else{
-            $usuarios = Usuarios::where($criterio, 'like', '%'. $buscar . '%')->orderBy('id', 'desc')->paginate(3);
+            $grupos = Grupos::where($criterio, 'like', '%'. $buscar . '%')->orderBy('id', 'desc')->paginate(3);
         }
          
         return [
             'pagination' => [
-            'total'        => $usuarios->total(),
-                'current_page' => $usuarios->currentPage(),
-                'per_page'     => $usuarios->perPage(),
-                'last_page'    => $usuarios->lastPage(),
-                'from'         => $usuarios->firstItem(),
-                'to'           => $usuarios->lastItem(),
+            'total'        => $grupos->total(),
+                'current_page' => $grupos->currentPage(),
+                'per_page'     => $grupos->perPage(),
+                'last_page'    => $grupos->lastPage(),
+                'from'         => $grupos->firstItem(),
+                'to'           => $grupos->lastItem(),
             ],
-            'usuarios' => $usuarios
+            'grupos' => $grupos
         ];
     
     }
   
    public function selectContactos(Request $request){
     // if (!$request->ajax()) return redirect('/');
-      $usuarios = Usuarios::where('condicion','=','1')
+      $grupos = Usuarios::where('condicion','=','1')
         ->select('id','nombre')->orderBy('nombre','asc')->get();
     
-    return ['usuarios' => $usuarios];
+    return ['usuarios' => $grupos];
   }
   
-   public function selectContactos2(Request $request){
-    // if (!$request->ajax()) return redirect('/');
-      $usuarios = Usuarios::where('idrol','<>',$request->idrol)
-        ->select('id','nombre')->orderBy('nombre','asc')->get();
-    
-    return ['usuarios' => $usuarios];
-  }
   
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
             $persona = new Usuarios();
@@ -74,6 +67,7 @@ class UsuariosController extends Controller
             $persona->password = bcrypt( $request->password);
             $persona->condicion = '1';      
             $persona->save();
+            
     }
  
     public function update(Request $request)
@@ -111,5 +105,5 @@ class UsuariosController extends Controller
         $user = Usuarios::findOrFail($request->id);
         $user->condicion = '1';
         $user->save();
-    }
+    }*/
 }
