@@ -20,13 +20,26 @@ class TicketsController extends Controller
         $criterio = $request->criterio;
           $ide = $request->ide;
         
-     $tickets = Tickets::join('users','tickets.id_usuario2','=','users.id')
+     /*$tickets = Tickets::join('users','tickets.id_usuario2','=','users.id')
             ->select('tickets.id','tickets.id_usuario1','tickets.id_usuario2','tickets.asunto','tickets.fecha','tickets.nuevo',
                      'tickets.condicion',
                      'users.nombre as nombre_users','users.telefono','users.idrol','users.password','users.email')->
           where('id_usuario2',  $ide)->orWhere('id_usuario1', $ide )->orderBy('fecha', 'desc')->paginate(50);
-         
-    /*
+         */ 
+     if ($buscar==''){
+    $tickets = DB::table('tickets')
+            ->join('users', 'tickets.id_usuario2', '=', 'users.id') 
+            ->select('tickets.*', 'users.*')
+            ->where('id_usuario2',  $ide)->orWhere('id_usuario1', $ide )->orderBy('fecha', 'desc')->paginate(50);
+     }else{
+     $tickets = DB::table('tickets')
+            ->join('users', 'tickets.id_usuario2', '=', 'users.id') 
+            ->select('tickets.*', 'users.*')
+            ->where('id_usuario2',  $ide)->where($criterio, 'like', '%'. $buscar . '%')
+          ->orWhere('id_usuario1', $ide )->where($criterio, 'like', '%'. $buscar . '%')->orderBy('fecha', 'desc')->paginate(50);
+     
+     }
+       /*
     if ($buscar==''){
            $tickets = Tickets::join('users','tickets.id_usuario2','=','users.id')
             ->select('tickets.id','tickets.id_usuario1','tickets.id_usuario2','tickets.asunto','tickets.fecha','tickets.nuevo',
@@ -159,9 +172,12 @@ class TicketsController extends Controller
             $ticket->condicion = '1';      
             $ticket->save();
         */
+        $nomb='';
+       $users = DB::table('users')->where('id',$request->id_cuenta)->pluck('nombre');
+        
          DB::table('tickets')->insert(
     ['id_usuario1' =>$request->id_cuenta, 'id_usuario2' => $request->id_receptor, 'fecha' => date("Y-m-d H:i:s"),
-     'asunto' => $request->asunto, 'nuevo' => '1', 'condicion' => '1']
+     'asunto' => $request->asunto, 'nuevo' => '1', 'condicion' => '1', "nombre_admin"=> $users]
 );
       }else{
     /*      $ticket = new Tickets();
@@ -174,12 +190,13 @@ class TicketsController extends Controller
             $ticket->nuevo = '1';      
             $ticket->condicion = '1';      
             $ticket->save();*/
-        
+         $users = DB::table('users')->where('id',$request->id_receptor)->pluck('nombre');
+         
               DB::table('tickets')->insert(
     ['id_usuario1' =>$request->id_receptor, 'id_usuario2' => $request->id_cuenta, 'fecha' => date("Y-m-d H:i:s"),
-     'asunto' => $request->asunto, 'nuevo' => '1', 'condicion' => '1']
+     'asunto' => $request->asunto, 'nuevo' => '1', 'condicion' => '1',"nombre_admin"=> $users]
 );
-        
+         
       }
             
     }

@@ -18,4 +18,9 @@ class Tickets extends Model
   public function mensajes(){
        return $this->hasMany('App\Mensajes');
   }
+  
+  public function users()
+    {
+        return $this->belongsTo('App\Usuarios');
+    }
 }

@@ -114,6 +114,32 @@ class CreateUsersTable extends Migration
      
        
         });
+      //se crea la tabla de tickets
+     Schema::create('tickets', function (Blueprint $table) {
+          $table->increments('id');
+       $table->integer('id_usuario1')->unsigned()->nullable();
+          $table->integer('id_usuario2')->unsigned()->nullable(); 
+          $table->string('asunto',250);
+          $table->date('fecha');  
+         $table->boolean('nuevo')->default(1);
+          $table->boolean('condicion')->default(1); 
+         $table->string('nombre_admin',100);
+           $table->foreign('id_usuario1')->references('id')->on('users')->onDelete('cascade'); 
+         $table->foreign('id_usuario2')->references('id')->on('users')->onDelete('cascade');
+      
+        });
+        //se crea la tabla de mensajes
+     Schema::create('', function (Blueprint $table) {
+          $table->increments('id');
+         $table->integer('id_ticket')->unsigned()->nullable();
+          $table->integer('id_emisor')->unsigned()->nullable();
+          $table->string('mensaje',200); 
+          $table->dateTime('fecha');  
+       
+         $table->foreign('id_ticket')->references('id')->on('tickets')->onDelete('cascade'); 
+         $table->foreign('id_emisor')->references('id')->on('users')->onDelete('cascade');
+      
+        });
      /*
      //se crea la tabla de alumno
      Schema::create('alumno', function (Blueprint $table) {

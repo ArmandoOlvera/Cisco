@@ -38,18 +38,33 @@
             <div class="recent_heading">
             <h5 class="card-title">Mensajes</h5>
             </div>
-          
+            <div class="col-mb-4">
+                                           <label><span>Buscar por:</span></label>
+                                         <select    class="  btn btn-focus"   v-model="criterio">
+                                           <template v-if="id_cuenta_rol==1">
+                                               <option    class="dropdown-item">nombre</option>
+                                            </template>
+<template v-else>
+ <option    class="dropdown-item">nombre_admin</option>
+                                              </template>
+                                                <option    class="dropdown-item">asunto</option> 
+                                            <option    class="dropdown-item"></option> 
+                                            </select>
+                                            </div> 
             <button type="button" @click="abrirModal('mensaje','registrar')" class="mb-2 mr-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dimiss="modal"  data-backdrop="false">
  Nuevo
   <span class="badge badge-light">Mensaje</span>
 </button>
-               <!------ <input type="text" class="search-bar"  placeholder="Buscar chat" >
+                
+            
             <div class="srch_bar">
               <div class="stylish-input-group">
+              
+                <input type="text" class="search-bar" v-model="buscar"  @keyup.enter="listarTickets(1,buscar,criterio)" placeholder="Buscar chat" >
                 <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-  </span>> </div>
-            </div>------>
+                <button type="button" @click="listarTickets(1,buscar,criterio)" > <i class="fa fa-search" aria-hidden="true"></i> </button>
+  </span>  </div>
+            </div> 
           </div>
           <div class="inbox_chat">
             
@@ -57,11 +72,11 @@
               <div class="chat_people" @click="listarMensajes(ticket.id)">
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
-                  <template v-if="ticket.nombre_users==nombre_cuenta" >
-                     <h5>Administrador</h5>
+                  <template v-if="ticket.nombre==nombre_cuenta" >
+                     <h5 v-text="ticket.nombre_admin"></h5>
                   </template>
                   <template v-else>
-                  <h5 v-text="ticket.nombre_users"></h5>                    
+                  <h5 v-text="ticket.nombre"></h5>                    
                   </template>
                   <button type="button" class="btn btn-primary"   @click="desactivarTicket(ticket.id)" >Borrar</button>
             

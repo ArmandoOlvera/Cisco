@@ -4454,6 +4454,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -46122,6 +46137,64 @@ var render = function() {
                     _c("div", { staticClass: "headind_srch" }, [
                       _vm._m(1),
                       _vm._v(" "),
+                      _c("div", { staticClass: "col-mb-4" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.criterio,
+                                expression: "criterio"
+                              }
+                            ],
+                            staticClass: "  btn btn-focus",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.criterio = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _vm.id_cuenta_rol == 1
+                              ? [
+                                  _c(
+                                    "option",
+                                    { staticClass: "dropdown-item" },
+                                    [_vm._v("nombre")]
+                                  )
+                                ]
+                              : [
+                                  _c(
+                                    "option",
+                                    { staticClass: "dropdown-item" },
+                                    [_vm._v("nombre_admin")]
+                                  )
+                                ],
+                            _vm._v(" "),
+                            _c("option", { staticClass: "dropdown-item" }, [
+                              _vm._v("asunto")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { staticClass: "dropdown-item" })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -46145,7 +46218,76 @@ var render = function() {
                             _vm._v("Mensaje")
                           ])
                         ]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "srch_bar" }, [
+                        _c("div", { staticClass: "stylish-input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.buscar,
+                                expression: "buscar"
+                              }
+                            ],
+                            staticClass: "search-bar",
+                            attrs: { type: "text", placeholder: "Buscar chat" },
+                            domProps: { value: _vm.buscar },
+                            on: {
+                              keyup: function($event) {
+                                if (
+                                  !$event.type.indexOf("key") &&
+                                  _vm._k(
+                                    $event.keyCode,
+                                    "enter",
+                                    13,
+                                    $event.key,
+                                    "Enter"
+                                  )
+                                ) {
+                                  return null
+                                }
+                                return _vm.listarTickets(
+                                  1,
+                                  _vm.buscar,
+                                  _vm.criterio
+                                )
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.buscar = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "input-group-addon" }, [
+                            _c(
+                              "button",
+                              {
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.listarTickets(
+                                      1,
+                                      _vm.buscar,
+                                      _vm.criterio
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-search",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            )
+                          ])
+                        ])
+                      ])
                     ]),
                     _vm._v(" "),
                     _c(
@@ -46176,23 +46318,27 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _vm._m(2, true),
+                                    _vm._m(3, true),
                                     _vm._v(" "),
                                     _c(
                                       "div",
                                       { staticClass: "chat_ib" },
                                       [
-                                        ticket.nombre_users == _vm.nombre_cuenta
+                                        ticket.nombre == _vm.nombre_cuenta
                                           ? [
-                                              _c("h5", [
-                                                _vm._v("Administrador")
-                                              ])
+                                              _c("h5", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    ticket.nombre_admin
+                                                  )
+                                                }
+                                              })
                                             ]
                                           : [
                                               _c("h5", {
                                                 domProps: {
                                                   textContent: _vm._s(
-                                                    ticket.nombre_users
+                                                    ticket.nombre
                                                   )
                                                 }
                                               })
@@ -46274,7 +46420,7 @@ var render = function() {
                                 ]
                               : [
                                   _c("div", { staticClass: "incoming_msg" }, [
-                                    _vm._m(3, true),
+                                    _vm._m(4, true),
                                     _vm._v(" "),
                                     _c("div", { staticClass: "received_msg" }, [
                                       _c(
@@ -46386,7 +46532,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm._m(5)
               ])
             ])
           ])
@@ -46653,6 +46799,12 @@ var staticRenderFns = [
     return _c("div", { staticClass: "recent_heading" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v("Mensajes")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("span", [_vm._v("Buscar por:")])])
   },
   function() {
     var _vm = this
