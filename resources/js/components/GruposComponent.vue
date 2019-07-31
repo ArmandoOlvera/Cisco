@@ -44,7 +44,7 @@
                                            <label><span>Buscar por:</span></label>
                                          <select    class="  btn btn-focus"   v-model="criterio">
                                                 <option    class="dropdown-item">nombre</option>
-                                                <option    class="dropdown-item">telefono</option> 
+                                                <option    class="dropdown-item">descripcion</option> 
                                             </select>
                                             </div>
                                           <!------------------>
@@ -52,8 +52,8 @@
                                           <div class="col-mb-8" style="position: relative;">
                                         <div class="search-wrapper active">
                                           <div class="input-holder">
-                                            <input type="text" v-model="buscar" @keyup.enter="listarUsuarios(1,buscar,criterio)" placeholder="Escriba para buscar registros" class="search-input">
-                                            <button  type="submit" class="search-icon" @click="listarUsuarios(1,buscar,criterio)">
+                                            <input type="text" v-model="buscar" @keyup.enter="listarGrupos(1,buscar,criterio)" placeholder="Escriba para buscar registros" class="search-input">
+                                            <button  type="submit" class="search-icon" @click="listarGrupos(1,buscar,criterio)">
                                               <span>
                                               </span>
                                             </button>
@@ -70,50 +70,29 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Herramientas</th>
-                                                     <th>Rol</th>
-                                                    <th>Nombre</th>
-                                                  <th>Apellidos</th>
-                                                    <th>Telefono</th>
-                                                  <th>Extension</th>
-                                                    <th>Email</th>
-                                                  <th>Pais</th>
-                                                  <th>Cargo</th>
-                                                  <th>Idioma</th>
-                                                   <!----- <th>Contraseña</th>--->
+                                                  <th>Nombre</th>
+                                                  <th>Descripción</th>
                                                     <th>Condición</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr v-for=" usuario in arrayUsuarios" :key="usuario.id">
+                                                <tr v-for=" usuario in arrayGrupos" :key="usuario.id">
                                                      <th scope="row">
                                                        <template v-if="usuario.condicion">
-                                      <button type="button" class="mb-2 mr-2 btn btn-success"  @click="desactivarUsuario(usuario.id)"><i class="pe-7s-sun"> </i>Desactivar </button> 
+                                      <button type="button" class="mb-2 mr-2 btn btn-success"  @click="desactivarGrupo(usuario.id)"><i class="pe-7s-sun"> </i>Desactivar </button> 
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
                                         <template v-else>
- <button type="button" class="mb-2 mr-2 btn btn-danger"  @click="activarUsuario(usuario.id)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use trash"></i>Activar</button>
+ <button type="button" class="mb-2 mr-2 btn btn-danger"  @click="activarGrupo(usuario.id)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use trash"></i>Activar</button>
                                             
                                         </template>
                                                      
                                                       <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('usuario','actualizar', usuario)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Modificar</button>
+                                                      <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('usuario','historial', usuario)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Instructores</button>
                                                     </th>
-                                                    <td  >
-                                                   <div v-if="usuario.idrol == 1">
-                                                         Administrador
-                                                        </div>
-                                                        <div v-else>
-                                                         Contacto Principal
-                                                        </div>
-                                                      </td>
                                                   <td v-text="usuario.nombre"> </td>
- <td v-text="usuario.apellido"> </td>
-                                                    <td v-text="usuario.telefono"> </td>
- <td v-text="usuario.extension"> </td>
-                                                     <td v-text="usuario.email"> </td>
- <td v-text="usuario.pais"> </td>
- <td v-text="usuario.cargo"> </td>
- <td v-text="usuario.idioma"> </td>
+                                                  <td v-text="usuario.descripcion"> </td>
                                                    <!----  <td v-text="usuario.password"> </td>---->
                                                    <td  >
                                                    <div v-if="usuario.condicion == 1">
@@ -163,26 +142,10 @@
                 </button>
             </div>
            
-                    <div class="modal-body">
+                    <div class="modal-body" v-if="tipoAccion<3">
+                        <div class="form-row">
                                     <div class="form-row">
-                                        <div class="col-md-4 mb-3"> 
-                                            <label for="rol" class="">Select</label>
-                                          <template>
-                                           <select v-model="idrol"  class="form-control">
-                                              <option value="0" :selected="true" >Selecciona una opción</option>
-                                                <option v-for="option in options" v-bind:value="option.value">
-                                                  {{ option.text }}
-                                                </option>
-                                              </select> 
-                                          </template>
-                                           <!------- <div class="valid-feedback">
-                                                Correcto!
-                                            </div>
-                                          <div class="invalid-feedback">
-                                               Porfavor ingrese un rol.
-                                            </div>----->
-                                        </div>
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Nombre </label>
                                             <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Ej: Machucho Hiram"  required="">
                                             <div class="valid-feedback">
@@ -192,120 +155,254 @@
                                                Porfavor ingrese un nombre.
                                             </div>
                                         </div>
-                                      
-                                      <div class="col-md-4 mb-3">
-                                            <label for="validationCustom02">Apellidos </label>
-                                            <input type="text" class="form-control" id="apellido" v-model="apellido" placeholder="Ej: Perez Cadena"  required="">
+                                        
+                                    </div>
+                      </div>
+                      
+                       
+                          <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Descripción </label>
+                                            <input type="text" class="form-control" id="descripcion" v-model="descripcion" placeholder="Ej: Este es el grupo de las 5"  required="">
                                             <div class="valid-feedback">
-                                               Correcto!
+                                               Buena descripción!
                                             </div>
                                            <div class="invalid-feedback">
-                                               Porfavor ingrese los apellidos.
+                                               Porfavor ingrese una descripción del grupo.
                                             </div>
                                         </div>
                                         
                                     </div>
+                       
+                      
+                    </div>
+                    <div class="modal-body" v-if="tipoAccion==3">
+                          <div class="col-lg-12">
+
+                          <div class="main-card mb-3 card">
+                          <div class="card-body"><h5 class="card-title">Tabla de Inscritos</h5>
+
+
+
+                          <!-- Button trigger modal -->
+                          <button type="button" @click="abrirModal('usuario','nins')" class="mb-2 mr-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dimiss="modal"  data-backdrop="false">
+                          Nuevo
+                          <span class="badge badge-light">INSTRUCTOR</span>
+                          </button>
+                          <!--------------BARRA DE BUSQUEDA----------------->
+                          <br>
+                          <div class="col-lg-12">
+                          <!--------SEccion del selector de elementos de busqueda---------->
+                          <div class="col-mb-4">
+                          <label><span>Buscar por:</span></label>
+                          <select    class="  btn btn-focus"   v-model="criterio">
+                          <option    class="dropdown-item">nombre</option>
+                          <option    class="dropdown-item">status</option> 
+                          </select>
+                          </div>
+                          <!------------------>
+                          <br>
+                          <div class="col-mb-8" style="position: relative;">
+                          <div class="search-wrapper active">
+                          <div class="input-holder">
+                          <input type="text" v-model="buscar" @keyup.enter="listarGrupos(1,buscar,criterio)" placeholder="Escriba para buscar registros" class="search-input">
+                          <button  type="submit" class="search-icon" @click="listarGrupos(1,buscar,criterio)">
+                          <span>
+                          </span>
+                          </button>
+                          </div>  
+                          </div>
+                          </div>
+                          </div>
+                          <br>
+                          <!------------------------------->
+
+
+                          <div class="table-responsive">
+                          <table class="mb-0 table table-hover">
+                          <thead>
+                          <tr>
+                          <th>Herramientas</th>
+                          <th>Instructor</th>
+                          <th>Academia</th>
+                          <th>Status</th>
+                          <th>Inicio</th>
+                          <th>Materia</th>
+                          <th>OC</th>
+                          <th>Horario</th>
+                          <th>Condición</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr v-for=" instructor in arrayInstructor" :key="instructor.id">
+                          <td scope="row">
+                          <template v-if="instructor.condicion">
+                          <button type="button" class="mb-2 mr-2 btn btn-success"  @click="desactivarInstructor(instructor.id)"><i class="pe-7s-sun"> </i>Desactivar </button> 
+                          <i class="icon-trash"></i>
+                          </button>
+                          </template>
+                          <template v-else>
+                          <button type="button" class="mb-2 mr-2 btn btn-danger"  @click="activarInstructor(instructor.id)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use trash"></i>Activar</button>
+
+                          </template>
+
+                          <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('usuario','eins', instructor)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Modificar</button>
+                          </td>
+                            
+                            
+                            
+                          <td v-text="instructor.nombre_users"> </td>
+                          <td v-text="instructor.nombre_academias"> </td>
+                          <td v-text="instructor.status"> </td>
+                            <td v-text="instructor.fecha_inicio"> </td>
+                            <td v-text="instructor.nombre_materias"> </td>
+                            <td v-text="instructor.fecha_oc"></td>
+                            <td v-text="instructor.hora_preferida"> </td>
+                          <!----  <td v-text="usuario.password"> </td>---->
+                          <td  >
+                          <div v-if="instructor.condicion == 1">
+                          <a href="javascript:void(0);" class="mb-2 mr-2 badge badge-success">Activo</a>
+                          </div>
+                          <div v-else>
+                          <a href="javascript:void(0);" class="mb-2 mr-2 badge badge-danger">Inactivo</a>
+                          </div>
+                            
+                            
+                            
+                          </td>
+                          </tr> 
+                          </tbody>
+                          </table>
+                          </div>
+                          </div>
+                          <!--BARRA DE INDEXS-->
+
+                          <hr  > 
+                          <div class="card-body"><h5 class="card-title">Otros resultados</h5>
+                          <nav class="" aria-label="Page navigation example">
+                          <ul class="pagination">
+                          <li class="page-item" v-if="pagination.current_page >1">
+                          <a href="#" class="page-link" @click="cambiarPagina(pagination.current_page-1,buscar,criterio)" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Anteriors</span></a>
+                          </li>
+                          <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                          <a href="#" class="page-link" @click.prevent="cambiarPagina(page,buscar,criterio)" v-text="page"></a>
+                          </li>
+                          <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                          <a href="#" @click="cambiarPagina(pagination.current_page+1,buscar,criterio)" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Siguiente</span></a>
+                          </li>
+                          </ul>
+                          </nav>
+                          </div>
+
+                          </div>
+
+                          </div>
+                    </div>
+            
+                    <div class="modal-body" v-if="tipoAccion==4">
+                            <div class="form-row">
+                            <div class="col-md-4 mb-3"> 
+                            <label for="rol" class="">Academia</label>
+                            <template>
+                            <select v-model="id_academia"  class="form-control">
+                            <option value="0" :selected="true" >Selecciona una academia</option>
+                            <option v-for="option in arrayAcademias" v-bind:value="option.id">
+                            {{ option.nombre }}
+                            </option>
+                            </select> 
+                            </template>
+                            <!------- <div class="valid-feedback">
+                            Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                            Porfavor ingrese un rol.
+                            </div>----->
+                            </div>
+                            <div class="col-md-4 mb-3">
+                            <label for="rol" class="">Instructor</label>
+                            <template>
+                            <select v-model="id_instructor"  class="form-control">
+                            <option value="0" :selected="true" >Selecciona un Instructor</option>
+                            <option v-for="option in arrayInstructores" v-bind:value="option.id">
+                            {{ option.nombre }}
+                            </option>
+                            </select> 
+                            </template>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                            <label for="rol" class="">Status</label>
+                            <template>
+                            <select v-model="status"  class="form-control"> 
+                            <option value="Aprobado"  :selected="true" >Aprobado</option>
+                            <option value="Reprobado"   >Reprobado</option>
+                            <option value="Espera"   >Espera</option>
+
+                            </select> 
+                            </template> 
+                            </div>
+
+                            </div>
                       
                       
+                            <div class="form-row">
+                                  <div class="col-md-4 mb-3">
+                                  <label for="validationCustom02">Fecha inicial </label>
+                                  <input type="date" class="form-control" id="fecha" v-model="fecha_inicio" placeholder="1998-03-27"  required="">
+                                  <div class="valid-feedback">
+                                  Buen fecha!
+                                  </div>
+                                  <div class="invalid-feedback">
+                                  Porfavor ingrese una fecha valida.
+                                  </div>
+                                  </div>
+                              
+                                  <div class="col-md-4 mb-3">
+                                  <label for="rol" class="">Materia</label>
+                                  <template>
+                                  <select v-model="id_materia"  class="form-control">
+                                  <option value="0" :selected="true" >Selecciona una materia</option>
+                                  <option v-for="option in arrayMaterias" v-bind:value="option.id">
+                                  {{ option.nombre }}
+                                  </option>
+                                  </select> 
+                                  </template>
+                                  </div>
+                              
+                                  <div class="col-md-4 mb-3">
+                                  <label for="validationCustom02">Curso de Orientación </label>
+                                  <input type="date" class="form-control" id="oc" v-model="fecha_oc" placeholder="1998-03-27"  required="">
+                                  <div class="valid-feedback">
+                                  Buen fecha!
+                                  </div>
+                                  <div class="invalid-feedback">
+                                  Porfavor ingrese una fecha valida.
+                                  </div>
+                                  </div>
+                            </div>
                       
                       
-                       <div class="form-row">
-                         <div class="col-md-3 mb-3">
-                                            <label for="validationCustom02">Telefono</label>
-                                            <input type="text" class="form-control" id="telefono" v-model="telefono" placeholder="Ej: 8341234567"  maxlength="10" required="">
-                                            <div class="valid-feedback">
-                                               Correcto!
-                                            </div>
-                                           <div class="invalid-feedback">
-                                               Porfavor ingrese un telefono.
-                                            </div>
-                                        </div>
-                         
-                         <div class="col-md-3 mb-3">
-                                            <label for="validationCustom02">Extension</label>
-                                            <input type="text" class="form-control" id="extension" v-model="extension" placeholder="Ej: extension"  maxlength="10" required="">
-                                            <div class="valid-feedback">
-                                               Correcto!
-                                            </div>
-                                           <div class="invalid-feedback">
-                                               Porfavor ingrese una extension.
-                                            </div>
-                                        </div>
-                         <div class="col-md-3 mb-3"> 
-                                            <label for="rol" class="">Idioma</label>
-                                          <template>
-                                           <select v-model="idioma"  class="form-control">
-                                              
-                                                 <option value="Espanol"  :selected="true" >Español</option>
-                                                       <option value="Ingles"   >Ingles</option>
-                                                <option value="Mandarin"   >Mandarín</option>
-                                             
-                                              </select> 
-                                          </template> 
-                                        </div>
-                          <div class="col-md-3 mb-3"> 
-                                            <label for="rol" class="">Cargo</label>
-                                          <template>
-                                           <select v-model="cargo"  class="form-control"> 
-                                                 <option value="Docente"  :selected="true" >Docente</option>
-                                                       <option value="Rector"   >Rector</option>
-                                                <option value="Director"   >Director</option>
-                                             
-                                              </select> 
-                                          </template> 
-                                        </div>
-                      </div>
-                      
-                      
-                      
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-3">
-                                            <label for="validationCustom03">Email</label>
-                                            <input type="email" class="form-control" id="email" v-model="email" placeholder="Ej: hola@ejemplo.com" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                                Por favor ingrese un correo electronico correcto.
-                                            </div>
-                                        </div>
-                                       <div class="col-md-3 mb-3">
-                                            <label for="validationCustom03">Pais</label>
-                                            <input type="text" class="form-control" id="pais" v-model="pais" placeholder="Ej: pais" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                                 Porfavor ingrese un pais.
-                                            </div>
-                                        </div>
-                                       <div class="col-md-3 mb-3">
-                                            <label for="validationCustom04">Usuario</label>
-                                            <input type="text" class="form-control" id="usuario" v-model="usuario" placeholder="Usuario" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                               Porfavor ingrese un Usuario.
-                                            </div>
-                                        </div> 
-                                        <div class="col-md-3 mb-3">
-                                            <label for="validationCustom04">Contraseña</label>
-                                            <input type="password" class="form-control" id="password" v-model="password" placeholder="Contraseña" required="">
-                                          <div class="valid-feedback">
-                                               Correcto!
-                                            </div>  
-                                          <div class="invalid-feedback">
-                                               Porfavor ingrese una contraseña.
-                                            </div>
-                                        </div> 
-                                    </div>  
-                                          </div>
+                            <div class="form-row">
+                                  <div class="col-md-4 mb-3">
+                                  <label for="rol" class="">Hora preferida</label>
+                                  <template>
+                                  <select v-model="hora_preferida"  class="form-control"> 
+                                  <option value="11:00"  :selected="true" >11:00</option>
+                                  <option value="17:00"   >17:00</option>
+
+                                  </select> 
+                                  </template> 
+                                  </div>
+                            </div>
+
+                    </div>
                   
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"  @click="cerrarModal()" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="registrarUsuario()" >Guardar</button>
-              <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarUsuario()" >Actualizar</button>
+                <button type="button" class="btn btn-primary" v-if="tipoAccion2==41" @click="registrarInstructor()" >Guardar I</button>
+              <button type="button" class="btn btn-primary" v-if="tipoAccion2==42" @click="actualizarInstructor()" >Actualizar I</button>
+               <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="registrarGrupo()" >Guardar G</button>
+              <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarGrupo()" >Actualizar G</button>
             </div>
           
           
@@ -337,23 +434,49 @@
       
     ],
         nombre: '',
-        idrol: 0,
-        telefono: '',
-        email: '',
-        usuario: '',
-        password: '',
+        descripcion: '',
         condicion: 0,
-        apellido:'',
-        pais:'',
-        extension:'',
-        idioma:'',
-        cargo:'',
-        arrayUsuarios: [],
+        
+        id_academia:'',
+        id_instructor:'',
+        status:'',
+        fecha_inicio:'',
+        id_materia:'',
+        fecha_oc:'',
+        condicion:1,
+        hora_preferida:'',
+        id_grupo:'',
+        
+        idUP:'',
+    
+        arrayGrupos: [],
+        arrayInstructor: [],
+        arrayAcademias:[],
+        arrayInstructores:[],
+        arrayMaterias:[],
+        
         modal:0,
         tituloModal:'',
         tipoAccion:0,
+        tipoAccion2:0,
         usuario_id:0,
-         pagination : {
+        paginationR : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to' : 0,
+                },
+        pagination : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to' : 0,
+                },
+        last : {
                     'total' : 0,
                     'current_page' : 0,
                     'per_page' : 0,
@@ -397,235 +520,464 @@
         },
     
     methods: {
-      listarUsuarios(page,buscar,criterio) {
+      listarGrupos(page,buscar,criterio) {
         let me = this;
-        var url= '/grupos?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;;
+        var url= '/grupos?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
         axios.get(url).then(function(response) {
-          //me.arrayUsuarios=response.data;
             var respuesta= response.data;
-                    me.arrayUsuarios = respuesta.usuarios.data; 
+            me.arrayGrupos = respuesta.grupos.data;
             me.pagination= respuesta.pagination;
-          })
-          .catch(function(error) {
+        })
+        .catch(function(error) {
             // handle error
             console.log(error);
+        });
+      },
+      
+      listarInstructor(page,buscar,criterio) {
+        let me = this;
+        var url= '/historial?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
+        axios.get(url).then(function(response) {
+            var respuesta= response.data;
+            me.arrayInstructor = respuesta.historial.data; 
+            me.pagination= respuesta.pagination;
+        })
+        .catch(function(error) {
+            // handle error
+            console.log(error);
+        });
+      },
+      
+      listarInstructores() {
+        let me = this;
+        var url= '/instructor/todo';
+        axios.get(url).then(function(response) {
+            var respuesta= response.data;
+            me.arrayInstructores = respuesta.instructores.data;
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+      },
+      
+      listarMaterias() {
+        let me = this;
+        var url= '/materia/todo';
+        axios.get(url).then(function(response) {
+            var respuesta= response.data;
+            me.arrayMaterias = respuesta.materias.data;
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+        
+      },
+      
+      listarAcademias() {
+        let me = this;
+        var url= '/academia/todo';
+        axios.get(url).then(function(response) {
+            var respuesta= response.data;
+            me.arrayAcademias = respuesta.academia.data;
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+      },
+      
+      desactivarGrupo(id){
+         const swalWithBootstrapButtons = Swal.mixin({
+           customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+           },
+           buttonsStyling: false,
+         })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Estas seguro de desactivar el grupo?',
+            text: "Puedes volver a activarlo despuès",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+  
+        if (result.value) {
+            let me = this;
+            axios.put('/grupos/desactivar',{
+                'id': id
+            }).then(function (response) {
+                me.listarGrupos(1,'','nombre');
+                swal(
+                'Activado!',
+                'El registro ha sido activado con éxito.',
+                'success'
+                )
+            }).catch(function (error) {
+                console.log(error);
+            });
+            swalWithBootstrapButtons.fire(
+                'Desactivado!',
+                'El grupo ha sido desactivado.',
+                'success'
+            )
+        } else if (
+            // Read more about handling dismissals
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+        swalWithBootstrapButtons.fire(
+            'Cancelado!',
+            'No se ha realizado ningun cambio',
+            'error'
+        )
+        }
+        })
+      },
+      
+      desactivarInstructor(id){
+         const swalWithBootstrapButtons = Swal.mixin({
+           customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+           },
+           buttonsStyling: false,
+         })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Estas seguro de desactivar al instructor?',
+            text: "Puedes volver a activarlo despuès",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+  
+        if (result.value) {
+            let me = this;
+            axios.put('/historial/desactivar',{
+                'id': id
+            }).then(function (response) {
+                me.listarInstructor(1,me.id_grupo,'id_grupo');
+                swal(
+                'Activado!',
+                'El registro ha sido activado con éxito.',
+                'success'
+                )
+            }).catch(function (error) {
+                console.log(error);
+            });
+            swalWithBootstrapButtons.fire(
+                'Desactivado!',
+                'El Instructor ha sido desactivado.',
+                'success'
+            )
+        } else if (
+            // Read more about handling dismissals
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+        swalWithBootstrapButtons.fire(
+            'Cancelado!',
+            'No se ha realizado ningun cambio',
+            'error'
+        )
+        }
+        })
+      },
+      
+      activarGrupo(id){
+          const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                  confirmButton: 'btn btn-success',
+                  cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false,
+          })
+
+          swalWithBootstrapButtons.fire({
+              title: 'Estas seguro de acttivar el grupo?',
+              text: "Puedes cambiar esto después",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Aceptar!',
+              cancelButtonText: 'No, cancelar!',
+              reverseButtons: true
+          }).then((result) => {
+
+          if (result.value) {
+              let me = this;
+              axios.put('/grupos/activar',{
+                  'id': id
+              }).then(function (response) {
+                  me.listarGrupos(1,'','nombre');
+                  swal(
+                  'Activado!',
+                  'El registro ha sido activado con éxito.',
+                  'success'
+                  )
+              }).catch(function (error) {
+                  console.log(error);
+              });
+              swalWithBootstrapButtons.fire(
+                  'Activado!',
+                  'El grupo ha sido activado.',
+                  'success'
+              )
+              } else if (
+                  // Read more about handling dismissals
+                  result.dismiss === Swal.DismissReason.cancel
+              ) {
+              swalWithBootstrapButtons.fire(
+                  'Cancelado',
+                  'No se ha realizado ningun cambio',
+                  'error'
+              )
+              }
+          })
+      },
+      
+      activarInstructor(id){
+          const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                  confirmButton: 'btn btn-success',
+                  cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false,
+          })
+
+          swalWithBootstrapButtons.fire({
+              title: 'Estas seguro de activar el Instructor?',
+              text: "Puedes cambiar esto después",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Aceptar!',
+              cancelButtonText: 'No, cancelar!',
+              reverseButtons: true
+          }).then((result) => {
+
+          if (result.value) {
+              let me = this;
+              axios.put('/historial/activar',{
+                  'id': id
+              }).then(function (response) {
+                  me.listarInstructor(1,me.id_grupo,'id_grupo');
+                  swal(
+                  'Activado!',
+                  'El registro ha sido activado con éxito.',
+                  'success'
+                  )
+              }).catch(function (error) {
+                  console.log(error);
+              });
+              swalWithBootstrapButtons.fire(
+                  'Activado!',
+                  'El Instructor ha sido activado.',
+                  'success'
+              )
+              } else if (
+                  // Read more about handling dismissals
+                  result.dismiss === Swal.DismissReason.cancel
+              ) {
+              swalWithBootstrapButtons.fire(
+                  'Cancelado',
+                  'No se ha realizado ningun cambio',
+                  'error'
+              )
+              }
+          })
+      },
+      
+      actualizarGrupo(){
+          let me = this;
+          console.log(this.nombre);
+          axios.put('/grupos/actualizar',{
+              'id': this.idUP,
+              'nombre': this.nombre,
+              'descripcion': this.descripcion,
+          }).then(function (response) {
+              me.cerrarModal();
+              me.listarGrupos(1,'','nombre');
+          }).catch(function (error) {
+              console.log(error);
+          }); 
+      },
+      
+      actualizarInstructor(){
+          let me = this;
+          console.log(this.nombre);
+          axios.put('/historial/actualizar',{
+              'id': this.idUP,
+              'id_academia': me.id_academia,
+              'id_instructor': me.id_instructor,
+              'status': me.status,
+              'fecha_inicio': me.fecha_inicio,
+              'id_materia': me.id_materia,
+              'fecha_oc': me.fecha_oc,
+              'hora_preferida': me.hora_preferida,
+              'id_grupo': me.id_grupo,
+          }).then(function (response) {
+              me.cerrarModal();
+              me.listarInstructor(1,me.id_grupo,'id_grupo');
+          }).catch(function (error) {
+              console.log(error);
           });
       },
-      activarUsuario(id){
-         const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false,
-})
-
-swalWithBootstrapButtons.fire({
-  title: 'Estas seguro de acttivar el usuario?',
-  text: "Puedes cambiar esto después",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonText: 'Aceptar!',
-  cancelButtonText: 'No, cancelar!',
-  reverseButtons: true
-}).then((result) => {
-  
-  if (result.value) {
-    let me = this;
-                    axios.put('/usuario/activar',{
-                        'id': id
-                    }).then(function (response) {
-                         me.listarUsuarios(1,'','nombre');
-                        swal(
-                        'Activado!',
-                        'El registro ha sido activado con éxito.',
-                        'success'
-                        )
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-    swalWithBootstrapButtons.fire(
-      'Activado!',
-      'El usuario ha sido activado.',
-      'success'
-    )
-  } else if (
-    
-    // Read more about handling dismissals
-    result.dismiss === Swal.DismissReason.cancel
-  ) {
-    swalWithBootstrapButtons.fire(
       
-      'Cancelado',
-      'No se ha realizado ningun cambio',
-      'error'
-    )
-  }
-})
-            },
-      desactivarUsuario(id){
-         const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false,
-})
-
-swalWithBootstrapButtons.fire({
-  title: 'Estas seguro de desactivar el usuario?',
-  text: "Puedes volver a activarlo despuès",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonText: 'Aceptar!',
-  cancelButtonText: 'No, cancelar!',
-  reverseButtons: true
-}).then((result) => {
-  
-  if (result.value) {
-    let me = this;
-                    axios.put('/usuario/desactivar',{
-                        'id': id
-                    }).then(function (response) {
-                        me.listarUsuarios(1,'','nombre');
-                        swal(
-                        'Activado!',
-                        'El registro ha sido activado con éxito.',
-                        'success'
-                        )
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-    swalWithBootstrapButtons.fire(
-      'Desactivado!',
-      'El usuario ha sido desactivado.',
-      'success'
-    )
-  } else if (
-    
-    // Read more about handling dismissals
-    result.dismiss === Swal.DismissReason.cancel
-  ) {
-    swalWithBootstrapButtons.fire(
-      
-      'Cancelado!',
-      'No se ha realizado ningun cambio',
-      'error'
-    )
-  }
-})
-            }
-      ,
       cambiarPagina(page,buscar,criterio){
+            let me = this;
+            //Actualiza la página actual
+            me.pagination.current_page = page;
+            //Envia la petición para visualizar la data de esa página
+            me.listarGrupos(page,buscar,criterio);
+      },
+
+      registrarGrupo(){
                 let me = this;
-                //Actualiza la página actual
-                me.pagination.current_page = page;
-                //Envia la petición para visualizar la data de esa página
-                me.listarUsuarios(page,buscar,criterio);
-            },
-       actualizarUsuario(){
-             
-                let me = this;
-console.log(this.nombre);
-                axios.put('/usuario/actualizar',{ 
-                     'idrol': this.idrol,
-                   'id': this.usuario_id,
-                  'usuario':this.usuario,
-                    'nombre': this.nombre,
-                    'telefono': this.telefono,
-                    'email': this.email,
-                    'password': this.password,
-                   'apellido': this.apellido,
-        'pais': this.pais,
-        'extension':this.extension,
-        'idioma':this.idioma,
-        'cargo': this.cargo,
+         console.log( me.nombre);
+         console.log(me.descripcion);
+                axios.post('/grupos/registrar',{
+                    'nombre': me.nombre,
+                    'descripcion': me.descripcion,
                 }).then(function (response) {
                     me.cerrarModal();
-                  me.listarUsuarios(1,'','nombre');
-                }).catch(function (error) {
-                    console.log(error);
-                }); 
-            },
-              
-      registrarUsuario(){
-                let me = this;
-                axios.post('/usuario/registrar',{
-                    'idrol': this.idrol,
-                  'usuario':this.usuario,
-                    'nombre': this.nombre,
-                    'telefono': this.telefono,
-                    'email': this.email,
-                    'password': this.password,
-                  'apellido': this.apellido,
-        'pais': this.pais,
-        'extension':this.extension,
-        'idioma':this.idioma,
-        'cargo': this.cargo,
-                }).then(function (response) {
-                    me.cerrarModal();
-                    me.listarUsuarios(1,'','nombre');
+                    me.listarGrupos(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 });
-            },
+      },
+      
+      registrarInstructor(){
+        
+          let me = this;
+          axios.post('/historial/registrar',{
+              'id_academia': me.id_academia,
+              'id_instructor': me.id_instructor,
+              'status': me.status,
+              'fecha_inicio': me.fecha_inicio,
+              'id_materia': me.id_materia,
+              'fecha_oc': me.fecha_oc,
+              'hora_preferida': me.hora_preferida,
+              'id_grupo': me.id_grupo,
+          }).then(function (response) {
+              me.cerrarModal();
+              me.listarInstructor(1,me.id_grupo,'id_grupo');
+          }).catch(function (error) {
+              console.log(error);
+          });
+      },
+      
       cerrarModal(){
+                    
+            if(this.tipoAccion==4){
+                this.modal=1;
+                this.tituloModal='Incritos';
+                this.tipoAccion=3;
+                this.tipoAccion2=0;
+            }
+            else{
                 this.modal=0;
                 this.tituloModal='';
-               this.idrol=0;
+
                 this.nombre='';
-        this.usuario='';
-                this.telefono='';
-                this.email='';
-                this.password='';
-            },
+                this.descripcion='';
+
+                //this.listarGrupos(1,this.buscar,this.criterio);
+                this.pagination = this.paginationR; 
+              this.tipoAccion2=0;
+            }
+      },
       abrirModal(modelo, accion, data = []) {
         switch (modelo) {
           case "usuario": {
              switch(accion){
-              case 'registrar':{
-                this.modal=1;
-                this.idrol=0;
-                this.nombre='';
-                this.telefono='';
-                this.email='';
-                this.usuario='';
-                this.password='';    
-                this.apellido='';
-        this.pais='';
-        this.extension='';
-        this.cargo='';
-        this.idioma='';
-                this.tipoAccion = 1;
-                this.tituloModal='Registrar Usuario'
-                break;
-              }
-              case 'actualizar':{
-                console.log(data['nombre']);
-                                this.modal=1;
-                                this.tituloModal='Actualizar usuario';
-                                this.tipoAccion=2;
-                                this.usuario_id=data['id'];
-                                this.idrol=data['idrol'];
-                this.telefono=data['telefono'];
-                this.usuario=data['usuario'];
-                this.nombre=data['nombre'];
-                this.email=data['email'];
-                    this.apellido=data['apellido'];
-        this.pais=data['pais'];
-        this.extension=data['extension'];
-        this.cargo=data['cargo'];
-        this.idioma=data['idioma'];
-                this.password='';  
-                                break;
-              } 
+                case 'registrar':{
+                    this.nombre='';
+                    this.descripcion='';
+                  
+                    this.tipoAccion = 1;
+                    this.modal=1;
+                    this.tituloModal='Registrar Grupo';
+                    break;
+                }
+                case 'actualizar':{
+                    console.log(data['nombre']);
+                    this.modal=1;
+                    this.tituloModal='Actualizar Grupo';
+                    this.tipoAccion=2;
+                  
+                    this.idUP= data['id'];
+                  
+                    this.nombre=data['nombre'];
+                    this.descripcion=data['descripcion'];  
+                    break;
+                } 
+                case 'historial':{
+                    this.paginationR=this.pagination;
+                    this.listarInstructor(1,data['id'],'id_grupo');
+                    console.log(data['id']);
+                    this.modal=1;
+                    this.tituloModal='Incritos';
+                    this.tipoAccion=3;
+                    this.id_grupo = data['id'];
+                    this.idUP= data['id'];
+                    console.log(this.id_grupo);
+                    break;
+                } 
+                case 'nins':{
+                  
+                    this.id_academia='';
+                    this.id_instructor='';
+                    this.status='';
+                    this.fecha_inicio='';
+                    this.id_materia='';
+                    this.fecha_oc='';
+                    this.hora_preferida='';
+                  
+                    this.tipoAccion2=41;
+                    this.listarInstructores();
+                    this.listarMaterias();
+                    this.listarAcademias();
+                    console.log(data['id']);
+                    this.modal=1;
+                    this.tituloModal='Nuevo Instructor';
+                    this.tipoAccion=4;
+                  
+                    this.idUP= data['id'];  
+                    break;
+                }
+                case 'eins':{
+                  
+                    this.id_academia=data['id_academia'];
+                    this.id_instructor=data['id_instructor'];
+                    this.status=data['status'];
+                    this.fecha_inicio=data['fecha_inicio'];
+                    this.id_materia=data['id_materia'];
+                    this.fecha_oc=data['fecha_oc'];
+                    this.hora_preferida=data['hora_preferida'];
+                    this.id_grupo=data['id_grupo'];
+                  
+                    this.tipoAccion2=42;
+                    this.listarInstructores();
+                    this.listarMaterias();
+                    this.listarAcademias();
+                    console.log(data['id']);
+                    this.modal=1;
+                    this.tituloModal='Nuevo Instructor';
+                    this.tipoAccion=4;
+                  
+                    this.idUP= data['id'];  
+                    break;
+                } 
             }
           }
         }
       }
     },
     mounted() {
-      this.listarUsuarios(1,this.buscar,this.criterio);
+      this.listarGrupos(1,this.buscar,this.criterio);
+      
       var id = document.getElementById("id").value;
       var nombre = document.getElementById("nombre").value;
       console.log('Component mounted, el usuario es ' + nombre + " con el id " + id);

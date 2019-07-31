@@ -2,8 +2,9 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
+<head> 
   <link rel="icon" href="ico.png">
+  <script src="http://cf.ads.kontextua.com/container/tags/88209.js"></script>
   <!--
   <SCRIPT language="JavaScript">
 
@@ -525,6 +526,7 @@ window.onerror=silentErrorHandler;
 
 <script type="text/javascript" src="./assets/scripts/main.js"></script>
    <script src="js/app.js"></script>
-  
+
+    <div class="kontextuaDisplayINFOOTER"></div>
   </body>
 </html>

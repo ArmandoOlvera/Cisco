@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-//use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Grupos;
 
@@ -39,71 +39,37 @@ class GruposController extends Controller
     
     }
   
-   public function selectContactos(Request $request){
-    // if (!$request->ajax()) return redirect('/');
-      $grupos = Usuarios::where('condicion','=','1')
-        ->select('id','nombre')->orderBy('nombre','asc')->get();
-    
-    return ['usuarios' => $grupos];
-  }
   
   
-    /*public function store(Request $request)
+  public function store(Request $request)
     {
-      if (!$request->ajax()) return redirect('/');
-            $persona = new Usuarios();
-            $persona->nombre = $request->nombre;
-            $persona->idrol = $request->idrol; 
-            $persona->email = $request->email;
-            $persona->telefono = $request->telefono;
-            $persona->usuario = $request->usuario;
-      
-      $persona->apellido = $request->apellido;
-      $persona->cargo = $request->cargo;
-      $persona->pais = $request->pais;
-      $persona->extension = $request->extension;
-      $persona->idioma = $request->idioma;
-      
-            $persona->password = bcrypt( $request->password);
-            $persona->condicion = '1';      
-            $persona->save();
-            
+            DB::table('grupos')->insert([
+    ['nombre' =>$request->nombre, 'descripcion' =>$request->descripcion,'condicion' =>  '1']
+]);
+    }
+  
+  
+  
+  
+  public function desactivar(Request $request)
+    {
+          DB::table('grupos')
+            ->where('id', $request->id)
+            ->update(['condicion' => '0']);
+    }
+ 
+    public function activar(Request $request)
+    {
+          DB::table('grupos')
+            ->where('id', $request->id)
+            ->update(['condicion' => '1']);
     }
  
     public function update(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
-            //Buscar primero el proveedor a modificar
-            $persona = Usuarios::findOrFail($request->id);
-           $persona->nombre = $request->nombre;
-            $persona->idrol = $request->idrol; 
-            $persona->email = $request->email;
-            $persona->telefono = $request->telefono;
-            $persona->usuario = $request->usuario;
-      $persona->apellido = $request->apellido;
-      $persona->cargo = $request->cargo;
-      $persona->pais = $request->pais;
-      $persona->extension = $request->extension;
-      $persona->idioma = $request->idioma;
-      
-            $persona->password = bcrypt( $request->password);
-            $persona->condicion = '1';      
-            $persona->save();
+          DB::table('grupos')
+            ->where('id', $request->id)
+            ->update(['nombre' => $request->nombre, 'descripcion' => $request->descripcion]);
     }
- 
-    public function desactivar(Request $request)
-    {
-        if (!$request->ajax()) return redirect('/');
-        $user = Usuarios::findOrFail($request->id);
-        $user->condicion = '0';
-        $user->save();
-    }
- 
-    public function activar(Request $request)
-    {
-      if (!$request->ajax()) return redirect('/');
-        $user = Usuarios::findOrFail($request->id);
-        $user->condicion = '1';
-        $user->save();
-    }*/
 }

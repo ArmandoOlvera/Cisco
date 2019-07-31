@@ -4,8 +4,8 @@
 <html  >
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <script src="http://cf.ads.kontextua.com/container/tags/88209.js"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -78,5 +78,20 @@
             @yield('login')
         </main>
     </div>
+  <div class="col-mb-12">
+    <center>
+      <div class="col-mb-4">
+    
+      </div>
+      <div class="col-mb-4">
+   <div class="kontextuaDisplayREGULARSS300x250"></div>
+      </div>
+      <div class="col-mb-4">
+    
+      </div></center>
+      <div class="kontextuaDisplayELEVATOR"  ></div>
+    <div class="kontextuaDisplayINFOOTER"></div>
+  </div>
+ 
 </body>
 </html>

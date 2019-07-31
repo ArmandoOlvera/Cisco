@@ -13,7 +13,4 @@ class Materias extends Model
          'nombre', 'condicion',
     ];
   
-  
-
-   
 }

@@ -191,6 +191,7 @@
                                         </div>
                                         
                                     </div>
+                      
                        <div class="form-row">
                          <div class="col-md-3 mb-3">
                                             <label for="validationCustom02">Telefono</label>
@@ -214,6 +215,11 @@
                                             </div>
                                         </div> 
                       </div>  
+                      <div class="form-row">
+                       <div class="form-row" v-if="seen"> 
+                          <div class="alert alert-danger" role="alert" >No se ha guardado el instructor, esto puede ser causado por:<br>*No se ingresaron todos los datos correctamente<br> *Correo electronico del instructor ya registrado </div>
+                      </div>
+                         </div>
                                           </div>
                   
             <div class="modal-footer">
@@ -250,7 +256,7 @@
       { text: 'Contacto Principal', value: '2' },
       
     ],
-        
+        seen:false,
         nombre: '',
         id_academia: 0,
          id: 0,
@@ -320,6 +326,7 @@
         axios.get(url).then(function(response) {
           //me.arrayInstructor=response.data;
             var respuesta= response.data;
+          me.seen=false;
                     me.arrayInstructor = respuesta.instructores.data; 
             me.pagination= respuesta.pagination;
           })
@@ -482,9 +489,11 @@ console.log(this.nombre);
                    'apellido': this.apellido,
                 }).then(function (response) {
                     me.cerrarModal();
+                  me.seen=false;
                     me.listarInstructores(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
+                  me.seen=true;
                 });
             },
       cerrarModal(){
@@ -496,6 +505,7 @@ console.log(this.nombre);
                 this.telefono='';
                 this.email='';
                 this.password='';
+        this.seen=false;
             },
       abrirModal(modelo, accion, data = []) {
         switch (modelo) {

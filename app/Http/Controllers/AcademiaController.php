@@ -55,6 +55,11 @@ class AcademiaController extends Controller
     return ['academias' => $academias];
   }
   
+    public function todo(){
+      $academias = Academias::orderBy('id', 'desc')->paginate(100);
+      return ['academia' => $academias];
+    }
+  
   
     public function store(Request $request)
     {

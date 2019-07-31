@@ -28,6 +28,7 @@ Route::group(['middleware'=>['auth']],function(){
           return view('contenido/contenido');
       })->name('main');
  
+Route::post('/main', 'MaatwebsiteDemoController@importExcel');
 // ESTOS CODIGOS SE 
  // Route::get('/logout','Auth\LoginController@logout')->name('logout');
 //Route::post('/logout','Auth\LoginController@logout')->name('logout');
@@ -60,6 +61,7 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/academia/desactivar', 'AcademiaController@desactivar');
       Route::put('/academia/activar', 'AcademiaController@activar');
   Route::get('/academia/selectAcademias', 'AcademiaController@selectAcademias');
+  Route::get('/academia/todo', 'AcademiaController@todo');
   
   //SEccion de las materias
   Route::get('/materia', 'MateriasController@index');
@@ -67,6 +69,7 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/materia/actualizar', 'MateriasController@update');
       Route::put('/materia/desactivar', 'MateriasController@desactivar');
       Route::put('/materia/activar', 'MateriasController@activar');
+      Route::get('/materia/todo', 'MateriasController@todo');
   
   //SEccion de los instructores
   Route::get('/instructor', 'InstructoresController@index');
@@ -74,10 +77,23 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/instructor/actualizar', 'InstructoresController@update');
       Route::put('/instructor/desactivar', 'InstructoresController@desactivar');
       Route::put('/instructor/activar', 'InstructoresController@activar');
+  Route::get('/instructor/todo', 'InstructoresController@todo');
   
   
   //Seccion para los grupos
   Route::get('/grupos', 'GruposController@index');
+  Route::post('/grupos/registrar', 'GruposController@store');
+  Route::put('/grupos/desactivar', 'GruposController@desactivar');
+  Route::put('/grupos/activar', 'GruposController@activar');
+  Route::put('/grupos/actualizar', 'GruposController@update');
+  
+  //Seccion para los historiales de grupos
+  Route::get('/historial', 'HistorialController@index');
+  Route::post('/historial/registrar', 'HistorialController@store');
+  Route::put('/historial/desactivar', 'HistorialController@desactivar');
+  Route::put('/historial/activar', 'HistorialController@activar');
+  Route::put('/historial/actualizar', 'HistorialController@update');
+  
   
   //SEccion de los tickets de mensajes admin-contacto_principal
   Route::get('/ticket', 'TicketsController@index');
@@ -92,8 +108,11 @@ Route::group(['middleware'=>['auth']],function(){
   
   //Dashboard general
    Route::get('/dashboard', 'DashboardController');
+  ///////pruebas excel
+
 });
 
+  Route::post('/grupos/registrar', 'GruposController@store');
 //solo para debugear por ahora, quitar despues
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::post('/logout','Auth\LoginController@logout')->name('logout');

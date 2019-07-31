@@ -33,7 +33,7 @@
 <h3 class="text-center">Mensajes</h3>
 <div class="messaging">
       <div class="inbox_msg">
-        <div class="inbox_people">
+        <div class="inbox_people" style="width: 40%;">
           <div class="headind_srch">
             <div class="recent_heading">
             <h5 class="card-title">Mensajes</h5>
@@ -69,7 +69,8 @@
           <div class="inbox_chat">
             
             <div class="chat_list  " v-for=" ticket in arrayTickets" :key="ticket.id" v-if="ticket.condicion==1" :class="[ticket.id == id_ticket_actual ? 'active_chat' : '']">
-              <div class="chat_people" @click="listarMensajes(ticket.id)">
+              <div class="chat_people" @click="listarMensajes(ticket.ticketid)">
+                <span v-text="ticket.ticketid"></span>
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
                   <template v-if="ticket.nombre==nombre_cuenta" >
@@ -78,7 +79,7 @@
                   <template v-else>
                   <h5 v-text="ticket.nombre"></h5>                    
                   </template>
-                  <button type="button" class="btn btn-primary"   @click="desactivarTicket(ticket.id)" >Borrar</button>
+                  <!---<button type="button" class="btn btn-primary"   @click="desactivarTicket(ticket.id)" >Borrar</button>--->
             
                   <template v-if="ticket.nuevo == 1">
                   <span class="chat_date" >NUEVO</span>                 
@@ -489,6 +490,7 @@ console.log(this.nombre);
             },
                registrarMensaje(){
                 let me = this;
+                  console.log(this.id_ticket_actual+"#"+this.id_cuenta+"#"+this.mensaje+""+"");
                 axios.post('/ticket/registrarMensaje',{
                     'id_ticket': this.id_ticket_actual,
                   'id_cuenta':this.id_cuenta,

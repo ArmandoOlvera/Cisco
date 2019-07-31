@@ -47,6 +47,8 @@ Usuario: vendedor password:vendedor<br>----->
                         </div>
                     </form>
                 </div>
+          
+          
             </div>
         </div>
     </div>

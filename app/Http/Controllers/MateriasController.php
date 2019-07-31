@@ -39,6 +39,11 @@ class MateriasController extends Controller
     
     }
   
+    public function todo(){
+      $materias = Materias::orderBy('id', 'desc')->paginate(100);
+      return ['materias' => $materias];
+    }
+  
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

@@ -161,7 +161,7 @@
                     <div class="modal-body">
                                     <div class="form-row">
                                         <div class="col-md-4 mb-3"> 
-                                            <label for="rol" class="">Enviar a</label>
+                                            <label for="rol" class="">Contacto Principal</label>
                                           <template>
                                            <select v-model="id_usuario"   class="form-control"> 
                                              <option value="0" :selected="true" >Selecciona una opción</option>

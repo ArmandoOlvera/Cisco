@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
         $table->string('idioma',20);
            $table->boolean('oc')->default(0);;
             $table->string('email',50);
-        $table->string('usuario')->unique();;
+        $table->string('usuario')->unique();
           $table->string('password',64);
           $table->boolean('condicion')->default(1);
           $table->timestamps(); 
@@ -69,8 +69,9 @@ class CreateUsersTable extends Migration
           $table->string('nombre',100);
        $table->string('apellido',100);
           $table->string('telefono',60);
-          $table->string('email',60);
+          $table->string('email',60)->unique();
           $table->boolean('condicion')->default(1);
+        $table->boolean('oc')->default(0);
           $table->timestamps(); 
             $table->foreign('id_academia')->references('id')->on('academia')->onDelete('cascade');
      
@@ -129,7 +130,7 @@ class CreateUsersTable extends Migration
       
         });
         //se crea la tabla de mensajes
-     Schema::create('', function (Blueprint $table) {
+     Schema::create('mensajes', function (Blueprint $table) {
           $table->increments('id');
          $table->integer('id_ticket')->unsigned()->nullable();
           $table->integer('id_emisor')->unsigned()->nullable();

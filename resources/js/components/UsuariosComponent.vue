@@ -107,13 +107,13 @@
                                                         </div>
                                                       </td>
                                                   <td v-text="usuario.nombre"> </td>
- <td v-text="usuario.apellido"> </td>
+                                                     <td v-text="usuario.apellido"> </td>
                                                     <td v-text="usuario.telefono"> </td>
- <td v-text="usuario.extension"> </td>
+                                                     <td v-text="usuario.extension"> </td>
                                                      <td v-text="usuario.email"> </td>
- <td v-text="usuario.pais"> </td>
- <td v-text="usuario.cargo"> </td>
- <td v-text="usuario.idioma"> </td>
+                                                     <td v-text="usuario.pais"> </td>
+                                                     <td v-text="usuario.cargo"> </td>
+                                                     <td v-text="usuario.idioma"> </td>
                                                    <!----  <td v-text="usuario.password"> </td>---->
                                                    <td  >
                                                    <div v-if="usuario.condicion == 1">
@@ -300,6 +300,9 @@
                                             </div>
                                         </div> 
                                     </div>  
+                        <div class="form-row" v-if="seen"> 
+                          <div class="alert alert-danger" role="alert" >No se ha guardado el usuario, esto puede ser causado por:<br>*No se ingresaron todos los datos correctamente<br> *Nombre de usuario ya existente </div>
+                      </div>
                                           </div>
                   
             <div class="modal-footer">
@@ -336,6 +339,8 @@
       { text: 'Contacto Principal', value: '2' },
       
     ],
+        seen:false,
+        errores:'',
         nombre: '',
         idrol: 0,
         telefono: '',
@@ -564,9 +569,11 @@ console.log(this.nombre);
         'cargo': this.cargo,
                 }).then(function (response) {
                     me.cerrarModal();
+                  me.seen=false;
                     me.listarUsuarios(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
+                  me.seen=true;
                 });
             },
       cerrarModal(){
@@ -578,6 +585,7 @@ console.log(this.nombre);
                 this.telefono='';
                 this.email='';
                 this.password='';
+        this.seen=false;
             },
       abrirModal(modelo, accion, data = []) {
         switch (modelo) {
@@ -596,11 +604,13 @@ console.log(this.nombre);
         this.extension='';
         this.cargo='';
         this.idioma='';
+                this.seen=false;
                 this.tipoAccion = 1;
                 this.tituloModal='Registrar Usuario'
                 break;
               }
               case 'actualizar':{
+                this.seen=false;
                 console.log(data['nombre']);
                                 this.modal=1;
                                 this.tituloModal='Actualizar usuario';

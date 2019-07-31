@@ -157,7 +157,11 @@
                                     
                                         
                                     </div>
-                       
+                         <div class="form-row">
+                       <div class="form-row" v-if="seen"> 
+                          <div class="alert alert-danger" role="alert" >No se ha guardado la materia, esto puede ser causado por:<br>*No se ingresaron todos los datos correctamente<br> </div>
+                      </div>
+                         </div>
                                           </div>
                   
             <div class="modal-footer">
@@ -194,6 +198,7 @@
       { text: 'Contacto Principal', value: '2' },
       
     ],
+        seen:true,
         nombre: '',
         idrol: 0,
         telefono: '',
@@ -406,9 +411,11 @@ console.log(this.nombre);
                      
                 }).then(function (response) {
                     me.cerrarModal();
+                  me.seen=false;
                     me.listarMaterias(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
+                  me.seen=true;
                 });
             },
       cerrarModal(){
@@ -420,6 +427,7 @@ console.log(this.nombre);
         this.usuario='';
                 this.telefono='';
                 this.email='';
+        this.seen=false;
                 this.password='';
             },
       abrirModal(modelo, accion, data = []) {

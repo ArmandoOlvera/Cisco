@@ -45,6 +45,7 @@
   <tickets-component></tickets-component>
 </template>
 
+ 
           @elseif(Auth::user()->idrol==2)
         <template v-if="menu==4">
   <h1>
@@ -62,7 +63,7 @@
 <template v-if="menu==7">
   <tickets-component></tickets-component>
 </template>
-
+ 
 
           @else
         

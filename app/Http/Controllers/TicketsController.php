@@ -29,12 +29,12 @@ class TicketsController extends Controller
      if ($buscar==''){
     $tickets = DB::table('tickets')
             ->join('users', 'tickets.id_usuario2', '=', 'users.id') 
-            ->select('tickets.*', 'users.*')
+            ->select('tickets.id as ticketid','tickets.*', 'users.*')
             ->where('id_usuario2',  $ide)->orWhere('id_usuario1', $ide )->orderBy('fecha', 'desc')->paginate(50);
      }else{
      $tickets = DB::table('tickets')
             ->join('users', 'tickets.id_usuario2', '=', 'users.id') 
-            ->select('tickets.*', 'users.*')
+            ->select('tickets.id as ticketid','tickets.*', 'users.*')
             ->where('id_usuario2',  $ide)->where($criterio, 'like', '%'. $buscar . '%')
           ->orWhere('id_usuario1', $ide )->where($criterio, 'like', '%'. $buscar . '%')->orderBy('fecha', 'desc')->paginate(50);
      
@@ -148,7 +148,7 @@ class TicketsController extends Controller
     {
       if (!$request->ajax()) return redirect('/');
             
-     DB::update('update tickets set nuevo = ? where id = ?',['1',$request->id_ticket]);
+    // DB::update('update tickets set nuevo = ? where id = ?',['1',$request->id_ticket]);
      
      DB::table('mensajes')->insert(
     ['id_ticket' =>$request->id_ticket, 'mensaje' => $request->mensaje, 'fecha' => date("Y-m-d H:i:s"), 'id_emisor' => $request->id_cuenta]

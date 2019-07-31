@@ -46,17 +46,23 @@ class InstructoresController extends Controller
     
     }
   
+    public function todo(){
+      $instructores = Instructores::orderBy('id', 'desc')->paginate(100);
+      return ['instructores' => $instructores];
+    }
+  
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
-            $instructores = new Instructores();
+           $instructores = new Instructores();
             $instructores->nombre = $request->nombre;
             $instructores->id_academia = $request->id_academia; 
             $instructores->email = $request->email;
             $instructores->telefono = $request->telefono;
             $instructores->apellido = $request->apellido; 
             $instructores->condicion = '1';      
-            $instructores->save();
+            $instructores->save(); 
+
     }
  
     public function update(Request $request)
