@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Grupos;
-
+use App\Academias;
+use App\Historial;
 
 class GruposController extends Controller
 {
@@ -48,7 +49,38 @@ class GruposController extends Controller
 ]);
     }
   
-  
+    public function listarPDF(Request $request){
+     
+       $historial = Academias::join('historial','academia.id','=','historial.id_academia')
+            ->selectRaw('academia.nombre,count(*) as total')
+             ->where('historial.id_grupo', $request->id)
+            ->where('historial.status', 'Reprobado')
+            ->groupBy('academia.nombre')->get();
+      
+      $historial2 = Academias::join('historial','academia.id','=','historial.id_academia')
+            ->selectRaw('academia.nombre,count(*) as total')
+             ->where('historial.id_grupo', $request->id)
+            ->where('historial.status', 'Aprobado')
+            ->groupBy('academia.nombre')->get();
+      
+      $historial3 = Academias::join('historial','academia.id','=','historial.id_academia')
+            ->selectRaw('academia.nombre,count(*) as total')
+             ->where('historial.id_grupo', $request->id)
+            ->where('historial.status', 'Espera')
+            ->groupBy('academia.nombre')->get();
+       
+      $cont=  Historial::where('status', 'Reprobado')->where('id_grupo', $request->id)->count();
+      $cont2=  Historial::where('status', 'Aprobado')->where('id_grupo', $request->id)->count();
+      $cont3=  Historial::where('status', 'Espera')->where('id_grupo', $request->id)->count();
+      
+      
+      $total = $cont+$cont2+$cont3;
+      $paprobado=($cont2/$total)*100;
+      $preprobado=($cont/$total)*100;
+     $pdf = \PDF::loadView('pdf.grupospdf',['preprobado'=>$preprobado,'paprobado'=>$paprobado,'cont'=>$cont,'cont2'=>$cont2,'cont3'=>$cont3,'historial'=>$historial,'historial2'=>$historial2,'historial3'=>$historial3]);
+    
+    return $pdf->download('grupos.pdf');
+  }
   
   
   public function desactivar(Request $request)

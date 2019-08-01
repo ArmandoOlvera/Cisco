@@ -13,7 +13,28 @@ class CreateUsersTable extends Migration
      */
    public function up()
     {
-      
+      //Importante para que la base de datos pueda funcionar en la seccion de reportes porfavor ejecute las
+     //siguientes entencias para las vistas de la base de datos en donde se vaya a usar, despues de haber creado
+     //las migraciones
+     /*
+     CREATE VIEW grupos_resultados_reprobado AS
+      SELECT DISTINCT a.nombre as 'nombreacademia'
+      FROM historial as h, academia as a
+      WHERE h.id_grupo = 8 AND h.id_academia= a.id AND h.status='Reprobado'; 
+     */
+     /*
+     CREATE VIEW grupos_resultados_aprobado AS
+      SELECT DISTINCT a.nombre as 'nombreacademia'
+      FROM historial as h, academia as a
+      WHERE h.id_grupo = 8 AND h.id_academia= a.id AND h.status='Aprobado'; 
+     */
+     /*
+       CREATE VIEW grupos_resultados_aprobado AS
+      SELECT DISTINCT a.nombre as 'nombreacademia'
+      FROM historial as h, academia as a
+      WHERE h.id_grupo = 8 AND h.id_academia= a.id AND h.status='Aprobado'; 
+     */
+     
       //Se crea la tabla rol  
       Schema::create('rol', function (Blueprint $table) {
            $table->increments('id');

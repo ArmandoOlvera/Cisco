@@ -3088,6 +3088,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -3255,6 +3259,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           swalWithBootstrapButtons.fire('Cancelado!', 'No se ha realizado ningun cambio', 'error');
         }
       });
+    },
+    cargarPDF: function cargarPDF() {
+      window.open('http://goldenwind.me/grupos/listarGrupos?id=8', '_blank');
     },
     desactivarInstructor: function desactivarInstructor(id) {
       var _this2 = this;
@@ -43759,6 +43766,25 @@ var render = function() {
                   _vm._v("\n Nuevo\n  "),
                   _c("span", { staticClass: "badge badge-light" }, [
                     _vm._v("GRUPO")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "mb-2 mr-2 btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.cargarPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n Nuevo\n  "),
+                  _c("span", { staticClass: "badge badge-light" }, [
+                    _vm._v("REPORTE")
                   ])
                 ]
               ),
