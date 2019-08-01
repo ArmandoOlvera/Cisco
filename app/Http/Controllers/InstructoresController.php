@@ -46,6 +46,18 @@ class InstructoresController extends Controller
     
     }
   
+   public function listarPDF(){
+    
+     $instructores = Instructores::orderBy('id', 'desc')->get();
+    
+     $cont = Instructores::count();
+    $pdf = \PDF::loadView('pdf.instructorpdf',['instructores'=>$instructores,'cont'=>$cont]);
+    
+    return $pdf->download('instructor.pdf');
+  }
+  
+  
+  
     public function todo(){
       $instructores = Instructores::orderBy('id', 'desc')->paginate(100);
       return ['instructores' => $instructores];

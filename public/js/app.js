@@ -1998,6 +1998,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2091,6 +2095,9 @@ __webpack_require__.r(__webpack_exports__);
         // handle error
         console.log(error);
       });
+    },
+    cargarPDF: function cargarPDF() {
+      window.open('http://goldenwind.me/academia/listarAcademias', '_blank');
     },
     activarAcademia: function activarAcademia(id) {
       var _this = this;
@@ -3803,6 +3810,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3929,6 +3940,9 @@ __webpack_require__.r(__webpack_exports__);
           swalWithBootstrapButtons.fire('Cancelado', 'No se ha realizado ningun cambio', 'error');
         }
       });
+    },
+    cargarPDF: function cargarPDF() {
+      window.open('http://goldenwind.me/instructor/listarInstructores', '_blank');
     },
     desactivarInstructor: function desactivarInstructor(id) {
       var _this2 = this;
@@ -4286,6 +4300,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4411,6 +4429,9 @@ __webpack_require__.r(__webpack_exports__);
           swalWithBootstrapButtons.fire('Cancelado', 'No se ha realizado ningun cambio', 'error');
         }
       });
+    },
+    cargarPDF: function cargarPDF() {
+      window.open('http://goldenwind.me/materia/listarMaterias', '_blank');
     },
     desactivarMateria: function desactivarMateria(id) {
       var _this2 = this;
@@ -5450,6 +5471,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5575,6 +5600,9 @@ __webpack_require__.r(__webpack_exports__);
           swalWithBootstrapButtons.fire('Cancelado', 'No se ha realizado ningun cambio', 'error');
         }
       });
+    },
+    cargarPDF: function cargarPDF() {
+      window.open('http://goldenwind.me/usuario/listarUsuarios', '_blank');
     },
     desactivarUsuario: function desactivarUsuario(id) {
       var _this2 = this;
@@ -41957,6 +41985,25 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "mb-2 mr-2 btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.cargarPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n Nuevo\n  "),
+                  _c("span", { staticClass: "badge badge-light" }, [
+                    _vm._v("REPORTE")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
               _c("br"),
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-12" }, [
@@ -45562,6 +45609,25 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "mb-2 mr-2 btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.cargarPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n Nuevo\n  "),
+                  _c("span", { staticClass: "badge badge-light" }, [
+                    _vm._v("REPORTE")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
               _c("br"),
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-12" }, [
@@ -46461,6 +46527,25 @@ var render = function() {
                   _vm._v("\n Nuevo\n  "),
                   _c("span", { staticClass: "badge badge-light" }, [
                     _vm._v("MATERIA")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "mb-2 mr-2 btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.cargarPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n Nuevo\n  "),
+                  _c("span", { staticClass: "badge badge-light" }, [
+                    _vm._v("REPORTE")
                   ])
                 ]
               ),
@@ -47866,6 +47951,25 @@ var render = function() {
                   _vm._v("\n Nuevo\n  "),
                   _c("span", { staticClass: "badge badge-light" }, [
                     _vm._v("USUARIO")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "mb-2 mr-2 btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.cargarPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n Nuevo\n  "),
+                  _c("span", { staticClass: "badge badge-light" }, [
+                    _vm._v("REPORTE")
                   ])
                 ]
               ),
@@ -61245,7 +61349,7 @@ Vue.component('materias-component', __webpack_require__(/*! ./components/Materia
 
 Vue.component('grupos-component', __webpack_require__(/*! ./components/GruposComponent.vue */ "./resources/js/components/GruposComponent.vue")["default"]); //Para ver los instructores
 
-Vue.component('instructores-component', __webpack_require__(/*! ./components/InstructoresComponent.vue */ "./resources/js/components/InstructoresComponent.vue")["default"]); //Para ver los tickets
+Vue.component('instructores-component', __webpack_require__(/*! ./components/InstructoresComponent.vue */ "./resources/js/components/InstructoresComponent.vue")["default"]); //Para ver los tickets-mensajes
 
 Vue.component('tickets-component', __webpack_require__(/*! ./components/TicketsComponent.vue */ "./resources/js/components/TicketsComponent.vue")["default"]);
 /**

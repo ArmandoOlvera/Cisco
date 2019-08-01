@@ -21,64 +21,46 @@ Route::group(['middleware'=>['guest']],function(){
 
 
 Route::group(['middleware'=>['auth']],function(){
-  //un usuario autenticado no puede acceder al login porque pues obvio tiene que desloguearse
-  //Route::get('/','Auth\LoginController@showLoginForm');
- 
+  //un usuario autenticado no puede acceder al login porque  tiene que desloguearse
+  
       Route::get('/main', function () {
           return view('contenido/contenido');
-      })->name('main');
- 
-Route::post('/main', 'MaatwebsiteDemoController@importExcel');
-// ESTOS CODIGOS SE 
- // Route::get('/logout','Auth\LoginController@logout')->name('logout');
-//Route::post('/logout','Auth\LoginController@logout')->name('logout');
-  ///Rutas que solo puede acceder el Administrador
-  
-  /* POR AHORA ESTAN DESACTIVADAS LAS VALIDACIONES DEL TIPO DE USUARIO, SOLO SE ANALIZA SI ESTAN LOGEADOS O NO
-  Route::group(['middleware'=>['Administrador']],function(){
-      Route::get('/usuario', 'UsuariosController@index');
-      Route::post('/usuario/registrar', 'UsuariosController@store');
-      Route::put('/usuario/actualizar', 'UsuariosController@update');
-      Route::put('/usuario/desactivar', 'UsuariosController@desactivar');
-      Route::put('/usuario/activar', 'UsuariosController@activar');
-  });
-  //Rutas que solo puede acceder el COntactoPrincipal
-  Route::group(['middleware'=>['ContactoPrincipal']],function(){
-    
-  });*/
+      })->name('main'); 
+  Route::post('/main', 'MaatwebsiteDemoController@importExcel'); 
   //Poner aqui los enlaces de los usuarios logeados!!  selectContactos
     Route::get('/usuario', 'UsuariosController@index');
     Route::post('/usuario/registrar', 'UsuariosController@store');
-      Route::put('/usuario/actualizar', 'UsuariosController@update');
-      Route::put('/usuario/desactivar', 'UsuariosController@desactivar');
-      Route::put('/usuario/activar', 'UsuariosController@activar');
-   Route::get('/usuario/selectUsuarios', 'UsuariosController@selectContactos');
-   Route::get('/usuario/selectUsuarios2', 'UsuariosController@selectContactos2');
+    Route::put('/usuario/actualizar', 'UsuariosController@update');
+    Route::put('/usuario/desactivar', 'UsuariosController@desactivar');
+    Route::put('/usuario/activar', 'UsuariosController@activar');
+    Route::get('/usuario/selectUsuarios', 'UsuariosController@selectContactos');
+    Route::get('/usuario/selectUsuarios2', 'UsuariosController@selectContactos2');
+   Route::get('/usuario/listarUsuarios', 'UsuariosController@listarPDF')->name('usuarios_pdf');
   //SEccion de las academias
-  Route::get('/academia', 'AcademiaController@index');
+    Route::get('/academia', 'AcademiaController@index');
     Route::post('/academia/registrar', 'AcademiaController@store');
-      Route::put('/academia/actualizar', 'AcademiaController@update');
-      Route::put('/academia/desactivar', 'AcademiaController@desactivar');
-      Route::put('/academia/activar', 'AcademiaController@activar');
-  Route::get('/academia/selectAcademias', 'AcademiaController@selectAcademias');
-  Route::get('/academia/todo', 'AcademiaController@todo');
-  
+    Route::put('/academia/actualizar', 'AcademiaController@update');
+    Route::put('/academia/desactivar', 'AcademiaController@desactivar');
+    Route::put('/academia/activar', 'AcademiaController@activar');
+    Route::get('/academia/selectAcademias', 'AcademiaController@selectAcademias');
+    Route::get('/academia/todo', 'AcademiaController@todo');
+   Route::get('/academia/listarAcademias', 'AcademiaController@listarPDF')->name('academias_pdf');
   //SEccion de las materias
-  Route::get('/materia', 'MateriasController@index');
+    Route::get('/materia', 'MateriasController@index');
     Route::post('/materia/registrar', 'MateriasController@store');
-      Route::put('/materia/actualizar', 'MateriasController@update');
-      Route::put('/materia/desactivar', 'MateriasController@desactivar');
-      Route::put('/materia/activar', 'MateriasController@activar');
-      Route::get('/materia/todo', 'MateriasController@todo');
-  
+    Route::put('/materia/actualizar', 'MateriasController@update');
+    Route::put('/materia/desactivar', 'MateriasController@desactivar');
+    Route::put('/materia/activar', 'MateriasController@activar');
+    Route::get('/materia/todo', 'MateriasController@todo');
+   Route::get('/materia/listarMaterias', 'MateriasController@listarPDF')->name('materias_pdf');
   //SEccion de los instructores
-  Route::get('/instructor', 'InstructoresController@index');
+    Route::get('/instructor', 'InstructoresController@index');
     Route::post('/instructor/registrar', 'InstructoresController@store');
-      Route::put('/instructor/actualizar', 'InstructoresController@update');
-      Route::put('/instructor/desactivar', 'InstructoresController@desactivar');
-      Route::put('/instructor/activar', 'InstructoresController@activar');
-  Route::get('/instructor/todo', 'InstructoresController@todo');
-  
+    Route::put('/instructor/actualizar', 'InstructoresController@update');
+    Route::put('/instructor/desactivar', 'InstructoresController@desactivar');
+    Route::put('/instructor/activar', 'InstructoresController@activar');
+    Route::get('/instructor/todo', 'InstructoresController@todo');
+   Route::get('/instructor/listarInstructores', 'InstructoresController@listarPDF')->name('instructores_pdf');
   
   //Seccion para los grupos
   Route::get('/grupos', 'GruposController@index');
@@ -86,7 +68,7 @@ Route::post('/main', 'MaatwebsiteDemoController@importExcel');
   Route::put('/grupos/desactivar', 'GruposController@desactivar');
   Route::put('/grupos/activar', 'GruposController@activar');
   Route::put('/grupos/actualizar', 'GruposController@update');
-  
+    
   //Seccion para los historiales de grupos
   Route::get('/historial', 'HistorialController@index');
   Route::post('/historial/registrar', 'HistorialController@store');
@@ -97,14 +79,14 @@ Route::post('/main', 'MaatwebsiteDemoController@importExcel');
   
   //SEccion de los tickets de mensajes admin-contacto_principal
   Route::get('/ticket', 'TicketsController@index');
-   Route::get('/ticket/getMensaje', 'TicketsController@index2');
+  Route::get('/ticket/getMensaje', 'TicketsController@index2');
   Route::get('/ticket/getMensaje2', 'TicketsController@index3');
-    Route::post('/ticket/registrar', 'TicketsController@store');
-   Route::post('/ticket/registrarMensaje', 'TicketsController@store2');
-      Route::put('/ticket/actualizar', 'TicketsController@update');
-      Route::put('/ticket/desactivar', 'TicketsController@desactivar');
-   Route::put('/ticket/desactivar2', 'TicketsController@desactivar2');
-      Route::put('/ticket/activar', 'TicketsController@activar');
+  Route::post('/ticket/registrar', 'TicketsController@store');
+  Route::post('/ticket/registrarMensaje', 'TicketsController@store2');
+  Route::put('/ticket/actualizar', 'TicketsController@update');
+  Route::put('/ticket/desactivar', 'TicketsController@desactivar');
+  Route::put('/ticket/desactivar2', 'TicketsController@desactivar2');
+  Route::put('/ticket/activar', 'TicketsController@activar');
   
   //Dashboard general
    Route::get('/dashboard', 'DashboardController');
@@ -112,7 +94,6 @@ Route::post('/main', 'MaatwebsiteDemoController@importExcel');
 
 });
 
-  Route::post('/grupos/registrar', 'GruposController@store');
 //solo para debugear por ahora, quitar despues
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::post('/logout','Auth\LoginController@logout')->name('logout');

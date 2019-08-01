@@ -36,6 +36,10 @@
  Nuevo
   <span class="badge badge-light">MATERIA</span>
 </button>
+                                                                            <button type="button" @click="cargarPDF()" class="mb-2 mr-2 btn btn-primary"   >
+ Nuevo
+  <span class="badge badge-light">REPORTE</span>
+</button>
                                       <!--------------BARRA DE BUSQUEDA----------------->
                                       <br>
                                        <div class="col-lg-12">
@@ -327,6 +331,10 @@ swalWithBootstrapButtons.fire({
   }
 })
             },
+      cargarPDF(){
+        window.open('http://goldenwind.me/materia/listarMaterias','_blank');
+      }
+      ,
       desactivarMateria(id){
          const swalWithBootstrapButtons = Swal.mixin({
   customClass: {

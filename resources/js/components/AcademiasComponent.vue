@@ -36,6 +36,10 @@
  Nuevo
   <span class="badge badge-light">ACADEMIA</span>
 </button>
+                                      <button type="button" @click="cargarPDF()" class="mb-2 mr-2 btn btn-primary"   >
+ Nuevo
+  <span class="badge badge-light">REPORTE</span>
+</button>
                                       <!--------------BARRA DE BUSQUEDA----------------->
                                       <br>
                                        <div class="col-lg-12">
@@ -390,6 +394,10 @@
             console.log(error);
           });
       },
+       cargarPDF(){
+        window.open('http://goldenwind.me/academia/listarAcademias','_blank');
+      }
+      ,
       activarAcademia(id){
          const swalWithBootstrapButtons = Swal.mixin({
   customClass: {

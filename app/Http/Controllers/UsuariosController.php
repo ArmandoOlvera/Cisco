@@ -39,6 +39,17 @@ class UsuariosController extends Controller
     
     }
   
+  public function listarPDF(){
+    
+     $usuarios = Usuarios::orderBy('id', 'desc')->get();
+    
+     $cont = Usuarios::count();
+    $pdf = \PDF::loadView('pdf.usuariospdf',['usuarios'=>$usuarios,'cont'=>$cont]);
+    
+    return $pdf->download('usuarios.pdf');
+  }
+  
+  
    public function selectContactos(Request $request){
     // if (!$request->ajax()) return redirect('/');
       $usuarios = Usuarios::where('condicion','=','1')

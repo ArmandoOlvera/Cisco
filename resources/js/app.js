@@ -35,7 +35,7 @@ Vue.component('grupos-component', require('./components/GruposComponent.vue').de
 //Para ver los instructores
 Vue.component('instructores-component', require('./components/InstructoresComponent.vue').default);
 
-//Para ver los tickets
+//Para ver los tickets-mensajes
 Vue.component('tickets-component', require('./components/TicketsComponent.vue').default); 
 
 

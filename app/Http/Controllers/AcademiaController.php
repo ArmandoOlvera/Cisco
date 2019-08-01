@@ -47,6 +47,17 @@ class AcademiaController extends Controller
     
     }
   
+   public function listarPDF(){
+    
+     $academias = Academias::orderBy('id', 'desc')->get();
+    
+     $cont = Academias::count();
+    $pdf = \PDF::loadView('pdf.academiaspdf',['academias'=>$academias,'cont'=>$cont]);
+    
+    return $pdf->download('academias.pdf');
+  }
+  
+  
   public function selectAcademias(Request $request){
      if (!$request->ajax()) return redirect('/');
       $academias = Academias::where('condicion','=','1')

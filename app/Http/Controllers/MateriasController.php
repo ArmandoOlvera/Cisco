@@ -39,6 +39,19 @@ class MateriasController extends Controller
     
     }
   
+     public function listarPDF(){
+    
+     $materias = Materias::orderBy('id', 'desc')->get();
+    
+     $cont = Materias::count();
+    $pdf = \PDF::loadView('pdf.materiaspdf',['materias'=>$materias,'cont'=>$cont]);
+    
+    return $pdf->download('materias.pdf');
+  }
+  
+  
+  
+  
     public function todo(){
       $materias = Materias::orderBy('id', 'desc')->paginate(100);
       return ['materias' => $materias];
