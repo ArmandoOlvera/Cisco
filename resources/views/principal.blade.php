@@ -74,11 +74,6 @@ window.onerror=silentErrorHandler;
               </center>
                 <div class="header__pane ml-auto">
                     <div>
-                      <!--  <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>-->
                     </div>
                 </div>
             </div>
@@ -103,32 +98,9 @@ window.onerror=silentErrorHandler;
                 <div class="app-header-left">
                   
                     <div class="search-wrapper">
-                        <!-----<div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>----->
+                  
                     </div>
-                   <!---- <ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                Statistics
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-edit"></i>
-                                Projects
-                            </a>
-                        </li>
-                        <li class="dropdown nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-cog"></i>
-                                Settings
-                            </a>
-                        </li>
-                    </ul>---->        
+                     
           </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -138,17 +110,9 @@ window.onerror=silentErrorHandler;
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                             <img width="42" class="rounded-circle" src="user.png" alt="smiley face">
-                                      <!----      <img width="42" class="rounded-circle" src="cisco_certified.jpg" alt="smiley face">
-                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>----->
+                      
                                         </a>
-                                        <!----<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">User Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
-                                            <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
-                                        </div>----->
+                                       
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
@@ -193,69 +157,6 @@ window.onerror=silentErrorHandler;
             <div class="theme-settings__inner">
                 <div class="scrollbar-container">
                     <div class="theme-settings__options-wrapper">
-                       <!---   <h3 class="themeoptions-heading">Layout Options
-                        </h3>
-                        <div class="p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="switch has-switch switch-container-class" data-class="fixed-header">
-                                                    <div class="switch-animate switch-on">
-                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Fixed Header
-                                                </div>
-                                                <div class="widget-subheading">Makes the header top fixed, always visible!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                               <li class="list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="switch has-switch switch-container-class" data-class="fixed-sidebar">
-                                                    <div class="switch-animate switch-on">
-                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Fixed Sidebar
-                                                </div>
-                                                <div class="widget-subheading">Makes the sidebar left fixed, always visible!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="switch has-switch switch-container-class" data-class="fixed-footer">
-                                                    <div class="switch-animate switch-off">
-                                                        <input type="checkbox" data-toggle="toggle" data-onstyle="success">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Fixed Footer
-                                                </div>
-                                                <div class="widget-subheading">Makes the app footer bottom fixed, always visible!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>---->
                         <h3 class="themeoptions-heading">
                             <div>
                                 Opciones de Encabezado
@@ -443,24 +344,6 @@ window.onerror=silentErrorHandler;
                             <button type="button" class="btn-pill btn-shadow btn-wide ml-auto active btn btn-focus btn-sm">Restore Default
                             </button>
                         </h3>
-                       <!---- <div class="p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <h5 class="pb-2">Page Section Tabs
-                                    </h5>
-                                    <div class="theme-settings-swatches">
-                                        <div role="group" class="mt-2 btn-group">
-                                            <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="body-tabs-line">
-                                                Line
-                                            </button>
-                                            <button type="button" class="btn-wide btn-shadow btn-primary active btn btn-secondary switch-theme-class" data-class="body-tabs-shadow">
-                                                Shadow
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>----->
                     </div>
                 </div>
             </div>
@@ -485,43 +368,6 @@ window.onerror=silentErrorHandler;
       <!----Aqui va el contenido principal----->
         </div>
     </div>
-           <!---- <div class="app-wrapper-footer">
-                      <div class="app-footer">
-                            <div class="app-footer__inner">
-                                <div class="app-footer-left">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 1
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 2
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="app-footer-right">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 3
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                <div class="badge badge-success mr-1 ml-0">
-                                                    <small>NEW</small>
-                                                </div>
-                                                Footer Link 4
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>  ---->
 </div>
 
 <script type="text/javascript" src="./assets/scripts/main.js"></script>

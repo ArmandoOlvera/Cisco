@@ -12,13 +12,12 @@ class GruposController extends Controller
     //
   public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
+    
+     //sentencia para manejar los criterios de busqueda para los grupos
       $grupos = Grupos::paginate(2);
-  
-    #
-     $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
+      $buscar = $request->buscar;
+      $criterio = $request->criterio;
+     //sentencia para manejar las busquedas de las grupos por criterios y sin ellos 
         if ($buscar==''){
             $grupos = Grupos::orderBy('id', 'desc')->paginate(3);
         }
@@ -75,9 +74,12 @@ class GruposController extends Controller
       
       
       $total = $cont+$cont2+$cont3;
+      if($total==0){
+        $total=1;
+      }
       $paprobado=($cont2/$total)*100;
       $preprobado=($cont/$total)*100;
-     $pdf = \PDF::loadView('pdf.grupospdf',['preprobado'=>$preprobado,'paprobado'=>$paprobado,'cont'=>$cont,'cont2'=>$cont2,'cont3'=>$cont3,'historial'=>$historial,'historial2'=>$historial2,'historial3'=>$historial3]);
+     $pdf = \PDF::loadView('pdf.grupospdf',['total'=>$total,'preprobado'=>$preprobado,'paprobado'=>$paprobado,'cont'=>$cont,'cont2'=>$cont2,'cont3'=>$cont3,'historial'=>$historial,'historial2'=>$historial2,'historial3'=>$historial3]);
     
     return $pdf->download('grupos.pdf');
   }

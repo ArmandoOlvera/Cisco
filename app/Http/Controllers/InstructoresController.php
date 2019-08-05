@@ -9,13 +9,11 @@ class InstructoresController extends Controller
 {
     public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
+      //sentencia para manejar los criterios de busqueda para los instructores
       $instructores = Instructores::paginate(2);
-  
-    #
-     $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
+      $buscar = $request->buscar;
+      $criterio = $request->criterio;
+      //sentencia para manejar las busquedas de los instructores por criterios y sin ellos     
        if ($buscar==''){
             $instructores = Instructores::join('academia','instructor.id_academia','=','academia.id')
             ->select('academia.id as id_academia','academia.nombre as nombre_academia',

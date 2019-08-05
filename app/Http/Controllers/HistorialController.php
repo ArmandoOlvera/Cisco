@@ -10,13 +10,10 @@ class HistorialController extends Controller
     //
   public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
-     // $usuarios = Usuarios::paginate(2);
-  
-    #
+     //sentencia para manejar los criterios de busqueda para los resultados de los grupos
      $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
+     $criterio = $request->criterio;
+     //sentencia para manejar las busquedas de los resultados por criterios y sin ellos         
         if ($buscar==''){
             $historial = Historial::join('academia','historial.id_academia','=','academia.id')
             ->join('instructor','historial.id_instructor','=','instructor.id')

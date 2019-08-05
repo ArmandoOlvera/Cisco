@@ -37,7 +37,10 @@ Vue.component('instructores-component', require('./components/InstructoresCompon
 
 //Para ver los tickets-mensajes
 Vue.component('tickets-component', require('./components/TicketsComponent.vue').default); 
-
+//Para ver los grupos por el lado del contacto principal
+Vue.component('grupos2-component', require('./components/Grupos3Component.vue').default);
+//Para recibir al contacto principal con una pagina guia simple
+Vue.component('dashboard2-component', require('./components/ExampleComponent2.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -32,10 +32,7 @@
                                       
 
 <!-- Button trigger modal -->
-<button type="button" @click="abrirModal('usuario','registrar')" class="mb-2 mr-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dimiss="modal"  data-backdrop="false">
- Nuevo
-  <span class="badge badge-light">GRUPO</span>
-</button>
+ 
                      
                                       <!--------------BARRA DE BUSQUEDA----------------->
                                       <br>
@@ -79,21 +76,13 @@
                                                 <tbody>
                                                 <tr v-for=" usuario in arrayGrupos" :key="usuario.id">
                                                      <th scope="row">
-                                                       <template v-if="usuario.condicion">
-                                      <button type="button" class="mb-2 mr-2 btn btn-success"  @click="desactivarGrupo(usuario.id)"><i class="pe-7s-sun"> </i>Desactivar </button> 
-                                                <i class="icon-trash"></i>
-                                            </button>
-                                        </template>
-                                        <template v-else>
- <button type="button" class="mb-2 mr-2 btn btn-danger"  @click="activarGrupo(usuario.id)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use trash"></i>Activar</button>
-                                            
-                                        </template>
+                                                
+                                       
                                                                       <button type="button" @click="cargarPDF(usuario.id)" class="mb-2 mr-2 btn btn-primary"   >
  Nuevo
   <span class="badge badge-light">REPORTE</span>
 </button>
-                                                      <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('usuario','actualizar', usuario)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Modificar</button>
-                                                      <button type="button" class="mb-2 mr-2 btn btn-warning" @click="abrirModal('usuario','historial', usuario)"><i class="fa fa-fw" aria-hidden="true" title="Copy to use pencil-square"></i>Instructores</button>
+                        
                                                     </th>
                                                   <td v-text="usuario.nombre"> </td>
                                                   <td v-text="usuario.descripcion"> </td>

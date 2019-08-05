@@ -10,13 +10,11 @@ class AcademiaController extends Controller
     //
   public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
-     // $usuarios = Usuarios::paginate(2);
-  
-    #
+    
+    //sentencia para manejar los criterios de busqueda para las academias
      $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
+     $criterio = $request->criterio;
+    //sentencia para manejar las busquedas de las academias por criterios y sin ellos 
         if ($buscar==''){
             $academias = Academias::join('users','academia.id_usuario','=','users.id')
             ->select('academia.id','academia.id_usuario','academia.nombre','academia.direccion','academia.direccion2','academia.pais','academia.estado','academia.ciudad','academia.codigo','academia.url','academia.institucion',
@@ -48,13 +46,10 @@ class AcademiaController extends Controller
     }
   
    public function listarPDF(){
-    
      $academias = Academias::orderBy('id', 'desc')->get();
-    
      $cont = Academias::count();
-    $pdf = \PDF::loadView('pdf.academiaspdf',['academias'=>$academias,'cont'=>$cont]);
-    
-    return $pdf->download('academias.pdf');
+     $pdf = \PDF::loadView('pdf.academiaspdf',['academias'=>$academias,'cont'=>$cont]);
+     return $pdf->download('academias.pdf');
   }
   
   

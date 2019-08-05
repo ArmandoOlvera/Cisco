@@ -11,13 +11,11 @@ class UsuariosController extends Controller
     //
   public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
+      //sentencia para manejar los criterios de busqueda para los usuarios
       $usuarios = Usuarios::paginate(2);
-  
-    #
-     $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
+      $buscar = $request->buscar;
+      $criterio = $request->criterio;
+      //sentencia para manejar las busquedas de los usuarios por criterios y sin ellos    
         if ($buscar==''){
             $usuarios = Usuarios::orderBy('id', 'desc')->paginate(3);
         }

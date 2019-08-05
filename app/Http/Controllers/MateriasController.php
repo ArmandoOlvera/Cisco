@@ -11,13 +11,11 @@ class MateriasController extends Controller
     //
   public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
-      $materias = Materias::paginate(2);
-  
-    #
-     $buscar = $request->buscar;
-        $criterio = $request->criterio;
-         
+      //sentencia para manejar los criterios de busqueda para las materias
+      $materias = Materias::paginate(2); 
+      $buscar = $request->buscar;
+      $criterio = $request->criterio;
+      //sentencia para manejar las busquedas de las materias por criterios y sin ellos     
         if ($buscar==''){
             $materias = Materias::orderBy('id', 'desc')->paginate(3);
         }

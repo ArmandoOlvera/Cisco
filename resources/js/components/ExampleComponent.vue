@@ -39,11 +39,15 @@
                                 <div class="card mb-3 widget-content bg-arielle-smile">
                                     <div class="widget-content-wrapper text-white">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Clients</div>
-                                            <div class="widget-subheading">Total Clients Profit</div>
+                                            <div class="widget-heading">Grupos</div>
+                                            <div class="widget-subheading">Total de Grupos activos</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span>$ 568</span></div>
+                                           <div class="widget-numbers text-white">
+                                             <template>
+                                                <span v-model="vargrupo" v-text="vargrupo"></span>
+                                              </template>
+                                             </div>
                                         </div>
                                     </div>
                                 </div>
@@ -52,11 +56,15 @@
                                 <div class="card mb-3 widget-content bg-grow-early">
                                     <div class="widget-content-wrapper text-white">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Followers</div>
-                                            <div class="widget-subheading">People Interested</div>
+                                            <div class="widget-heading">Academias</div>
+                                            <div class="widget-subheading">Academias activas</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span>46%</span></div>
+                                           <div class="widget-numbers text-white">
+                                             <template>
+                                                <span v-model="varacademia" v-text="varacademia"></span>
+                                              </template>
+  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -65,11 +73,15 @@
                                 <div class="card mb-3 widget-content bg-premium-dark">
                                     <div class="widget-content-wrapper text-white">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading">Products Sold</div>
-                                            <div class="widget-subheading">Revenue streams</div>
+                                            <div class="widget-heading">Instructores</div>
+                                            <div class="widget-subheading">Instructores activos</div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-warning"><span>$14M</span></div>
+                                            <div class="widget-numbers text-white">
+                                             <template>
+                                                <span v-model="varinstructor" v-text="varinstructor"></span>
+                                              </template>
+  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +98,11 @@
                                                 <div class="widget-subheading">Last year expenses</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="widget-numbers text-success">1896</div>
+                                   
+                                             <template>
+                                                <span  class="widget-numbers text-danger" v-model="varaprobados" v-text="varaprobados"></span>
+                                              </template>
+  
                                             </div>
                                         </div>
                                     </div>
@@ -97,11 +113,16 @@
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-heading">Products Sold</div>
+                                                <div class="widget-heading">Reprobados</div>
                                                 <div class="widget-subheading">Revenue streams</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="widget-numbers text-warning">$3M</div>
+                                             
+                                             <template>
+
+                                                <span  class="widget-numbers text-danger" v-model="varreprobados" v-text="varreprobados"></span>
+                                              </template>
+  
                                             </div>
                                         </div>
                                     </div>
@@ -112,11 +133,11 @@
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-heading">Followers</div>
-                                                <div class="widget-subheading">People Interested</div>
+                                                <div class="widget-heading">Administradores</div>
+                                                <div class="widget-subheading">Administradores del sitio</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="widget-numbers text-danger">45,9%</div>
+                                                <div class="widget-numbers text-danger" v-model="varadmin" v-text="varadmin"> </div>
                                             </div>
                                         </div>
                                     </div>
@@ -149,90 +170,9 @@
                         </div>
                          
                         <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-danger">71%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Income Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-success">54%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Expenses Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-warning">32%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="width: 32%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Spendings Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-info">89%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100" style="width: 89%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Totals Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                            
+                           
                           
                           <div class="col-md-6 col-lg-6">
                             <div class="card-header-tab card-header-tab-animation card-header">
@@ -272,6 +212,21 @@
                 varMesTotal:[],
         cantidad:[],
         varcantidad:[],
+         vargrupo:[],
+        grupo:[],
+        academia:[],
+        varacademia:[],
+        instructor:[],
+        varinstructor:[],
+        reprobados:[],
+        aprobados:[],
+        varreprobados:[]
+        ,varaprobados:[],
+        admin:[],
+        varadmin:[],
+        preprobados:0,
+        paprobados:0,
+        
       }
     },
     methods: {
@@ -283,7 +238,16 @@
                     me.cuenta = respuesta.ingreso;
                     //cargamos los datos del chart
                   me.cantidad= respuesta.usuarios;
-                   
+                   me.grupo=respuesta.grupo;
+                   me.academia=respuesta.academia;
+                    me.instructor=respuesta.instructor;
+                   me.aprobados=respuesta.aprobados;
+                  me.admin=respuesta.admin;
+                   me.reprobados=respuesta.reprobados;
+                  me.paprobados=respuesta.paprobados;
+                  me.preprobados=respuesta.preprobados;
+                  console.log( me.reprobados);
+                  console.log(me.aprobados);
                   me.loadTotal();
                 })
                 .catch(function (error) {
@@ -297,6 +261,27 @@
       //   console.log(me.cuenta);
          me.cantidad.map(function(x){
                     me.varcantidad.push(x.activos);
+                });
+         
+         me.grupo.map(function(x){
+                    me.vargrupo.push(x.activos);
+                });
+         me.admin.map(function(x){
+                    me.varadmin.push(x.activos);
+                });
+         me.academia.map(function(x){
+                    me.varacademia.push(x.activos);
+                });
+         me.instructor.map(function(x){
+                    me.varinstructor.push(x.activos);
+                });
+         
+          me.aprobados.map(function(x){
+                    me.varaprobados.push(x.activos);
+                });
+         
+          me.reprobados.map(function(x){
+                    me.varreprobados.push(x.activos);
                 });
          me.cuenta.map(function(x){
                   

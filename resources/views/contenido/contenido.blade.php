@@ -48,16 +48,12 @@
  
           @elseif(Auth::user()->idrol==2)
         <template v-if="menu==4">
-  <h1>
-    Grupos
-  </h1>
+  <grupos2-component></grupos2-component>
 </template>
 
 
-<template v-if="menu==5">
-  <h1>
-    Instructores
-  </h1>
+<template v-if="menu==0">
+  <dashboard2-component></dashboard2-component>
 </template>
 
 <template v-if="menu==7">

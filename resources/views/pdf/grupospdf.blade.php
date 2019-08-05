@@ -157,9 +157,10 @@
         </table>
     </div>
     <div class="izquierda">
-        <p><strong>Total de Aprobados: </strong>{{$cont2}} </p><br>
-      <p><strong>Total de Reprobados: </strong>{{$cont}} </p><br>
-      <p><strong>Total de Espera: </strong>{{$cont3}} </p><br>
+      <p><strong>Total de Alumnos: </strong>{{$total}} alumnos.</p><br>
+        <p><strong>Total de Aprobados: </strong>{{$cont2}} alumnos.</p><br>
+      <p><strong>Total de Reprobados: </strong>{{$cont}} alumnos.</p><br>
+      <p><strong>Total de Espera: </strong>{{$cont3}} alumnos.</p><br>
       <p><strong>Porcentaje Aprobado: </strong>{{$paprobado}} %</p><br>
       <p><strong>Porcentaje Reprobado: </strong>{{$preprobado}} % </p><br>
     </div>    

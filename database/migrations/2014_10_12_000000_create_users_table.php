@@ -13,28 +13,7 @@ class CreateUsersTable extends Migration
      */
    public function up()
     {
-      //Importante para que la base de datos pueda funcionar en la seccion de reportes porfavor ejecute las
-     //siguientes entencias para las vistas de la base de datos en donde se vaya a usar, despues de haber creado
-     //las migraciones
-     /*
-     CREATE VIEW grupos_resultados_reprobado AS
-      SELECT DISTINCT a.nombre as 'nombreacademia'
-      FROM historial as h, academia as a
-      WHERE h.id_grupo = 8 AND h.id_academia= a.id AND h.status='Reprobado'; 
-     */
-     /*
-     CREATE VIEW grupos_resultados_aprobado AS
-      SELECT DISTINCT a.nombre as 'nombreacademia'
-      FROM historial as h, academia as a
-      WHERE h.id_grupo = 8 AND h.id_academia= a.id AND h.status='Aprobado'; 
-     */
-     /*
-       CREATE VIEW grupos_resultados_aprobado AS
-      SELECT DISTINCT a.nombre as 'nombreacademia'
-      FROM historial as h, academia as a
-      WHERE h.id_grupo = 8 AND h.id_academia= a.id AND h.status='Aprobado'; 
-     */
-     
+      //Importante ejecutar estas migraciones para que el sistema funcione
       //Se crea la tabla rol  
       Schema::create('rol', function (Blueprint $table) {
            $table->increments('id');
@@ -162,42 +141,7 @@ class CreateUsersTable extends Migration
          $table->foreign('id_emisor')->references('id')->on('users')->onDelete('cascade');
       
         });
-     /*
-     //se crea la tabla de alumno
-     Schema::create('alumno', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('nombre',100); 
-          $table->boolean('condicion')->default(1);
-          $table->timestamps();  
-        });
-      //se crea la tabla de alumno/materia
-     Schema::create('alumno_materia', function (Blueprint $table) {
-          $table->integer('id_materia')->unsigned()->nullable();
-          $table->integer('id_alumno')->unsigned()->nullable();
-          $table->boolean('condicion')->default(1);
-          $table->foreign('id_materia')->references('id')->on('materia');
-          $table->foreign('id_alumno')->references('id')->on('alumno');
-          $table->timestamps();  
-        });
-     //se crea la tabla de grupos
-     Schema::create('grupo', function (Blueprint $table) {
-          $table->increments('id');
-          $table->integer('id_instructor')->unsigned()->nullable();
-          $table->integer('id_academia')->unsigned()->nullable();
-          $table->integer('id_materia')->unsigned()->nullable();
-          $table->string('nombre',100);
-          $table->boolean('condicion')->default(1);
-          $table->timestamps(); 
-          $table->foreign('id_instructor')->references('id')->on('instructor')->onDelete('cascade');
-          $table->foreign('id_academia')->references('id')->on('academia')->onDelete('cascade');
-       $table->foreign('id_materia')->references('id')->on('materia')->onDelete('cascade');
-        });
-     */
-     
-     
-     
-     
-     /////////////////////////////////////////////
+   
     }
      
     

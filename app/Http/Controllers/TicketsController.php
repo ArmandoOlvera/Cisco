@@ -12,20 +12,12 @@ class TicketsController extends Controller
     //
   public function index(Request $request)
     {
-    // if (!$request->ajax()) return redirect('/');
+      //sentencia para manejar los criterios de busqueda para los tickets
       $tickets = Tickets::paginate(2);
-  
-    #
-     $buscar = $request->buscar;
-        $criterio = $request->criterio;
-          $ide = $request->ide;
-        
-     /*$tickets = Tickets::join('users','tickets.id_usuario2','=','users.id')
-            ->select('tickets.id','tickets.id_usuario1','tickets.id_usuario2','tickets.asunto','tickets.fecha','tickets.nuevo',
-                     'tickets.condicion',
-                     'users.nombre as nombre_users','users.telefono','users.idrol','users.password','users.email')->
-          where('id_usuario2',  $ide)->orWhere('id_usuario1', $ide )->orderBy('fecha', 'desc')->paginate(50);
-         */ 
+      $buscar = $request->buscar;
+      $criterio = $request->criterio;
+      $ide = $request->ide;
+      //sentencia para manejar las busquedas de los tickets por criterios y sin ellos 
      if ($buscar==''){
     $tickets = DB::table('tickets')
             ->join('users', 'tickets.id_usuario2', '=', 'users.id') 
