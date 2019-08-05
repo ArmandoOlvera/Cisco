@@ -35,35 +35,25 @@ class UsuariosController extends Controller
             'usuarios' => $usuarios
         ];
     
-    }
-  
+    } 
+  ///Funcion para generar un listado de usuarios y descargarlos en pdf
   public function listarPDF(){
-    
-     $usuarios = Usuarios::orderBy('id', 'desc')->get();
-    
-     $cont = Usuarios::count();
+    $usuarios = Usuarios::orderBy('id', 'desc')->get();
+    $cont = Usuarios::count();
     $pdf = \PDF::loadView('pdf.usuariospdf',['usuarios'=>$usuarios,'cont'=>$cont]);
-    
     return $pdf->download('usuarios.pdf');
-  }
-  
-  
-   public function selectContactos(Request $request){
-    // if (!$request->ajax()) return redirect('/');
-      $usuarios = Usuarios::where('condicion','=','1')
-        ->select('id','nombre')->orderBy('nombre','asc')->get();
-    
+  } 
+  //Funcion para obtener todos los usuarios activos
+   public function selectContactos(Request $request){ 
+    $usuarios = Usuarios::where('condicion','=','1')->select('id','nombre')->orderBy('nombre','asc')->get();
     return ['usuarios' => $usuarios];
   }
-  
-   public function selectContactos2(Request $request){
-    // if (!$request->ajax()) return redirect('/');
-      $usuarios = Usuarios::where('idrol','<>',$request->idrol)
-        ->select('id','nombre')->orderBy('nombre','asc')->get();
-    
+  //Funcion para obtener todos los usuarios que sean diferentes del rol que se le indique por parametro
+   public function selectContactos2(Request $request){ 
+    $usuarios = Usuarios::where('idrol','<>',$request->idrol)->select('id','nombre')->orderBy('nombre','asc')->get();
     return ['usuarios' => $usuarios];
   }
-  
+  ///Funcion para guardar usuarios
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
@@ -72,40 +62,36 @@ class UsuariosController extends Controller
             $persona->idrol = $request->idrol; 
             $persona->email = $request->email;
             $persona->telefono = $request->telefono;
-            $persona->usuario = $request->usuario;
-      
-      $persona->apellido = $request->apellido;
-      $persona->cargo = $request->cargo;
-      $persona->pais = $request->pais;
-      $persona->extension = $request->extension;
-      $persona->idioma = $request->idioma;
-      
+            $persona->usuario = $request->usuario; 
+            $persona->apellido = $request->apellido;
+            $persona->cargo = $request->cargo;
+            $persona->pais = $request->pais;
+            $persona->extension = $request->extension;
+            $persona->idioma = $request->idioma; 
             $persona->password = bcrypt( $request->password);
             $persona->condicion = '1';      
             $persona->save();
     }
- 
+ //Funcion para actualizær usuarios
     public function update(Request $request)
     {
-      if (!$request->ajax()) return redirect('/');
-            //Buscar primero el proveedor a modificar
-            $persona = Usuarios::findOrFail($request->id);
+      if (!$request->ajax()) return redirect('/'); 
+           $persona = Usuarios::findOrFail($request->id);
            $persona->nombre = $request->nombre;
-            $persona->idrol = $request->idrol; 
-            $persona->email = $request->email;
-            $persona->telefono = $request->telefono;
-            $persona->usuario = $request->usuario;
-      $persona->apellido = $request->apellido;
-      $persona->cargo = $request->cargo;
-      $persona->pais = $request->pais;
-      $persona->extension = $request->extension;
-      $persona->idioma = $request->idioma;
-      
-            $persona->password = bcrypt( $request->password);
-            $persona->condicion = '1';      
-            $persona->save();
+           $persona->idrol = $request->idrol; 
+           $persona->email = $request->email;
+           $persona->telefono = $request->telefono;
+           $persona->usuario = $request->usuario;
+           $persona->apellido = $request->apellido;
+           $persona->cargo = $request->cargo;
+           $persona->pais = $request->pais;
+           $persona->extension = $request->extension;
+           $persona->idioma = $request->idioma;
+           $persona->password = bcrypt( $request->password);
+           $persona->condicion = '1';      
+           $persona->save();
     }
- 
+ //FUncion para desactivar usuarios
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -113,7 +99,7 @@ class UsuariosController extends Controller
         $user->condicion = '0';
         $user->save();
     }
- 
+ //FUncion para activar usuarios
     public function activar(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

@@ -45,6 +45,7 @@ class AcademiaController extends Controller
     
     }
   
+  //funcion que realiza la busqueda y obtencion de datos para imprimir el pdf en forma de descargar
    public function listarPDF(){
      $academias = Academias::orderBy('id', 'desc')->get();
      $cont = Academias::count();
@@ -52,21 +53,19 @@ class AcademiaController extends Controller
      return $pdf->download('academias.pdf');
   }
   
-  
+  //Funcion la cual obtiene las academias de forma sencilla para su muestreo
   public function selectAcademias(Request $request){
-     if (!$request->ajax()) return redirect('/');
-      $academias = Academias::where('condicion','=','1')
-        ->select('id','nombre')->orderBy('nombre','asc')->get();
-    
+    if (!$request->ajax()) return redirect('/');
+    $academias = Academias::where('condicion','=','1')->select('id','nombre')->orderBy('nombre','asc')->get(); 
     return ['academias' => $academias];
   }
-  
+  //Funcion de obtener todas las academias por id
     public function todo(){
       $academias = Academias::orderBy('id', 'desc')->paginate(100);
       return ['academia' => $academias];
     }
   
-  
+  //FUncion para realizar el guardado de las academias
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
@@ -74,18 +73,17 @@ class AcademiaController extends Controller
             $academias->nombre = $request->nombre;
             $academias->id_usuario = $request->id_usuario; 
             $academias->direccion = $request->direccion;
-      
-       $academias->direccion2 = $request->direccion2;
-      $academias->pais = $request->pais;
-      $academias->estado = $request->estado;
-      $academias->ciudad = $request->ciudad;
-      $academias->codigo = $request->codigo;
-      $academias->url = $request->url;
-      $academias->institucion = $request->institucion;
+            $academias->direccion2 = $request->direccion2;
+            $academias->pais = $request->pais;
+            $academias->estado = $request->estado;
+            $academias->ciudad = $request->ciudad;
+            $academias->codigo = $request->codigo;
+            $academias->url = $request->url;
+            $academias->institucion = $request->institucion;
             $academias->condicion = '1';      
             $academias->save();
     }
- 
+ //FUncion para actualizar las academias
     public function update(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
@@ -103,7 +101,7 @@ class AcademiaController extends Controller
             $academias->condicion = '1';      
             $academias->save();
     }
- 
+ //Funcion para desactivar las academias
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -111,7 +109,7 @@ class AcademiaController extends Controller
         $academias->condicion = '0';
         $academias->save();
     }
- 
+ //Funcion para activar las academias
     public function activar(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

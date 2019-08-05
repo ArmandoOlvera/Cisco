@@ -43,24 +43,20 @@ class InstructoresController extends Controller
         ];
     
     }
-  
+  //Funcion para descargar el listado de los instructores por pdf
    public function listarPDF(){
-    
      $instructores = Instructores::orderBy('id', 'desc')->get();
-    
      $cont = Instructores::count();
-    $pdf = \PDF::loadView('pdf.instructorpdf',['instructores'=>$instructores,'cont'=>$cont]);
-    
-    return $pdf->download('instructor.pdf');
+     $pdf = \PDF::loadView('pdf.instructorpdf',['instructores'=>$instructores,'cont'=>$cont]);
+     return $pdf->download('instructor.pdf');
   }
   
-  
-  
+  //Funcion para obtener todos los instructores
     public function todo(){
       $instructores = Instructores::orderBy('id', 'desc')->paginate(100);
       return ['instructores' => $instructores];
     }
-  
+  //Funcion para guardar todos los instructores
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
@@ -71,14 +67,12 @@ class InstructoresController extends Controller
             $instructores->telefono = $request->telefono;
             $instructores->apellido = $request->apellido; 
             $instructores->condicion = '1';      
-            $instructores->save(); 
-
+            $instructores->save();
     }
- 
+ //Funcione para actualizar los instructores
     public function update(Request $request)
     {
-      if (!$request->ajax()) return redirect('/');
-            //Buscar primero el proveedor a modificar
+      if (!$request->ajax()) return redirect('/'); 
             $instructores = Instructores::findOrFail($request->id);
             $instructores->nombre = $request->nombre;
             $instructores->id_academia = $request->id_academia; 
@@ -88,7 +82,7 @@ class InstructoresController extends Controller
             $instructores->condicion = '1';         
             $instructores->save();
     }
- 
+ //Funcion para desactivar los instructores
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -96,7 +90,7 @@ class InstructoresController extends Controller
         $instructores->condicion = '0';
         $instructores->save();
     }
- 
+ //Funcion para activar los instructores
     public function activar(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

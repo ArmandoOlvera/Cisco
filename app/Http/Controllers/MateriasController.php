@@ -22,7 +22,6 @@ class MateriasController extends Controller
         else{
             $materias = Materias::where($criterio, 'like', '%'. $buscar . '%')->orderBy('id', 'desc')->paginate(3);
         }
-         
         return [
             'pagination' => [
             'total'        => $materias->total(),
@@ -34,48 +33,38 @@ class MateriasController extends Controller
             ],
             'materias' => $materias
         ];
-    
     }
-  
+    //Funcion para descargar el listado de las materias por pdf
      public function listarPDF(){
-    
      $materias = Materias::orderBy('id', 'desc')->get();
-    
      $cont = Materias::count();
-    $pdf = \PDF::loadView('pdf.materiaspdf',['materias'=>$materias,'cont'=>$cont]);
-    
-    return $pdf->download('materias.pdf');
-  }
-  
-  
-  
-  
+     $pdf = \PDF::loadView('pdf.materiaspdf',['materias'=>$materias,'cont'=>$cont]);
+     return $pdf->download('materias.pdf');
+  } 
+  //Funcion para obtener todas las materias
     public function todo(){
       $materias = Materias::orderBy('id', 'desc')->paginate(100);
       return ['materias' => $materias];
     }
-  
+  //Funcion para guardar materias a la base de datos
     public function store(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
             $materias = new Materias();
-            $materias->nombre = $request->nombre;
-          
+            $materias->nombre = $request->nombre; 
             $materias->condicion = '1';      
             $materias->save();
     }
- 
+ //Funcion para actualizar las materias
     public function update(Request $request)
     {
       if (!$request->ajax()) return redirect('/');
-            //Buscar primero el proveedor a modificar
             $materias = Materias::findOrFail($request->id);
-           $materias->nombre = $request->nombre;
-       
+            $materias->nombre = $request->nombre;
             $materias->condicion = '1';      
             $materias->save();
     }
- 
+  //Funcion para activar las materias
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -83,7 +72,7 @@ class MateriasController extends Controller
         $materias->condicion = '0';
         $materias->save();
     }
- 
+  //Funcion para desactivar las materias
     public function activar(Request $request)
     {
       if (!$request->ajax()) return redirect('/');

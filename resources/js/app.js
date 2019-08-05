@@ -15,13 +15,9 @@ window.Vue = require('vue');
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-
 //COmponentes para los usuarios
 //Para ver los usuarios
 Vue.component('usuarios-component', require('./components/UsuariosComponent.vue').default);
@@ -31,23 +27,14 @@ Vue.component('academias-component', require('./components/AcademiasComponent.vu
 Vue.component('materias-component', require('./components/MateriasComponent.vue').default);
 //Para ver los grupos
 Vue.component('grupos-component', require('./components/GruposComponent.vue').default);
-
 //Para ver los instructores
 Vue.component('instructores-component', require('./components/InstructoresComponent.vue').default);
-
 //Para ver los tickets-mensajes
 Vue.component('tickets-component', require('./components/TicketsComponent.vue').default); 
 //Para ver los grupos por el lado del contacto principal
 Vue.component('grupos2-component', require('./components/Grupos3Component.vue').default);
 //Para recibir al contacto principal con una pagina guia simple
 Vue.component('dashboard2-component', require('./components/ExampleComponent2.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */ 
-
 const app = new Vue({
     el: '#app',
   data:{

@@ -47,11 +47,10 @@ class HistorialController extends Controller
     }
   
   
+  //Funcion para guardar los resultados de los instructores de los grupos
     public function store(Request $request)
     {
-      
           if (!$request->ajax()) return redirect('/');
-          //Buscar primero el proveedor a modificar
           $historial = new Historial();
           $historial->id_academia = $request->id_academia;
           $historial->id_instructor  = $request->id_instructor;
@@ -62,14 +61,12 @@ class HistorialController extends Controller
           $historial->condicion = '0';
           $historial->hora_preferida  = $request->hora_preferida;
           $historial->id_grupo  = $request->id_grupo;
-               
           $historial->save();/**/
     }
- 
+ //Funcion para actualizar la informacion de los resultados de los intructores
     public function update(Request $request)
     {
-          if (!$request->ajax()) return redirect('/');
-          //Buscar primero el proveedor a modificar
+          if (!$request->ajax()) return redirect('/'); 
           $historial = Historial::findOrFail($request->id);
           $historial->id_academia = $request->id_academia;
           $historial->id_instructor  = $request->id_instructor;
@@ -78,11 +75,10 @@ class HistorialController extends Controller
           $historial->id_materia  = $request->id_materia;
           $historial->fecha_oc  = $request->fecha_oc;
           $historial->hora_preferida  = $request->hora_preferida;
-          $historial->id_grupo  = $request->id_grupo;
-               
+          $historial->id_grupo  = $request->id_grupo; 
           $historial->save();
     }
- 
+ //FUncion para desactivar los grupos
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -90,7 +86,7 @@ class HistorialController extends Controller
         $user->condicion = '0';
         $user->save();
     }
- 
+ //Funcion para activar los grupos
     public function activar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');

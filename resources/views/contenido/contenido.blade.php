@@ -1,10 +1,5 @@
-@extends('principal')
-@section('contenido')
-
-
-@if(Auth::check())
-          @if(Auth::user()->idrol==1)
-           <template v-if="menu==0">
+@extends('principal') @section('contenido') @if(Auth::check()) @if(Auth::user()->idrol==1)
+<template v-if="menu==0">
               <example-component></example-component>
            </template>
 
@@ -43,11 +38,8 @@
 <template v-if="menu==7">
 
   <tickets-component></tickets-component>
-</template>
-
- 
-          @elseif(Auth::user()->idrol==2)
-        <template v-if="menu==4">
+</template> @elseif(Auth::user()->idrol==2)
+<template v-if="menu==4">
   <grupos2-component></grupos2-component>
 </template>
 
@@ -58,15 +50,4 @@
 
 <template v-if="menu==7">
   <tickets-component></tickets-component>
-</template>
- 
-
-          @else
-        
-          @endif
-@endif
-
-
-
-
-@endsection
+</template> @else @endif @endif @endsection
