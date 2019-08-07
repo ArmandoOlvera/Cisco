@@ -67,7 +67,7 @@ window.onerror=silentErrorHandler;
       <input id="id" name="id" type="text" value="{{Auth::user()->id}}">
       <input id="rol" name="rol" type="text" value="{{Auth::user()->idrol}}">
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow">
+        <div class="app-header header-shadow bg-primary header-text-light">
             <div class="app-header__logo">
                 <center  >
                    <img src="cisco2.png" alt="Smiley face" height="90" width="270"> 
