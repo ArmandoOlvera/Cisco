@@ -4,10 +4,7 @@
                     <div class="app-main__inner">
                        <!---AQUI VA EL TITULO DE LA PAGINA----> 
                        <div class="app-page-title">
-                 
-  
-                            <div class="page-title-wrapper">
-                              
+                         <div class="page-title-wrapper">
                                 <div class="page-title-heading">
                                     <div class="page-title-icon">
                                         <i class="pe-7s-rocket icon-gradient bg-mean-fruit">
@@ -277,6 +274,13 @@
                                         </div>
                         
                       </div>
+                       <div class="form-row" v-if="seen"> 
+                          <div class="alert alert-danger" role="alert" >
+                            No se ha guardado la academia, esto puede ser causado por:
+                            <br>*No se ingresaron todos los datos correctamente
+                            <br> *Contacto Principal ya asignado a una academia 
+                          </div>
+                      </div>
                                           </div>
                   
             <div class="modal-footer">
@@ -314,6 +318,7 @@
       
     ],
         id:0,
+         seen:false,
         id_usuario:0,
         direccion:'',
         nombre: '',
@@ -388,9 +393,11 @@
             var respuesta= response.data;
                     me.arrayAcademias = respuesta.academia.data; 
             me.pagination= respuesta.pagination;
+           me.seen=false;
           })
           .catch(function(error) {
             // handle error
+           me.seen=true;
             console.log(error);
           });
       },
@@ -540,9 +547,11 @@ console.log(this.nombre);
                  'url':this.url, 
                 }).then(function (response) {
                     me.cerrarModal();
+                   me.seen=false;
                   me.listarAcademias(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
+                   me.seen=true;
                 }); 
             },
               
@@ -563,9 +572,11 @@ console.log(this.nombre);
                   
                 }).then(function (response) {
                     me.cerrarModal();
+                   me.seen=false;
                     me.listarAcademias(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
+                   me.seen=true;
                 });
             },
       cerrarModal(){
@@ -574,7 +585,7 @@ console.log(this.nombre);
                this.idrol=0;
                 this.nombre='';
         this.usuario='';
-        
+         this.seen=false;
                 this.direccion='';
                 this.id_usuario='';
                 this.password='';
@@ -587,6 +598,7 @@ console.log(this.nombre);
                 this.direccion='';
                 this.direccion2='';
                 this.modal=1;
+                 this.seen=false;
                 this.idrol=0;
                 this.nombre='';
                 this.telefono='';
@@ -608,6 +620,7 @@ console.log(this.nombre);
                                 this.modal=1;
                                 this.tituloModal='Actualizar Academia';
                                 this.tipoAccion=2;
+                 this.seen=false;
                                 this.id=data['id'];
                                 this.id_usuario=data['id_usuario']; 
                 this.pais=data['pais'];

@@ -27,37 +27,17 @@
                     <div class="col-lg-12">
                  
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Tabla de Grupos</h5>
-                                      
-                                      
-
-<!-- Button trigger modal -->
- 
-                     
+                                    <div class="card-body"><h5 class="card-title">Tabla de Grupos</h5> 
                                       <!--------------BARRA DE BUSQUEDA----------------->
                                       <br>
                                        <div class="col-lg-12">
                                            <!--------SEccion del selector de elementos de busqueda---------->
-                                         <div class="col-mb-4">
-                                           <label><span>Buscar por:</span></label>
-                                         <select    class="  btn btn-focus"   v-model="criterio">
-                                                <option    class="dropdown-item">nombre</option>
-                                                <option    class="dropdown-item">descripcion</option> 
-                                            </select>
-                                            </div>
+                                       
                                           <!------------------>
                                          <br>
-                                          <div class="col-mb-8" style="position: relative;">
-                                        <div class="search-wrapper active">
-                                          <div class="input-holder">
-                                            <input type="text" v-model="buscar" @keyup.enter="listarGrupos(1,buscar,criterio)" placeholder="Escriba para buscar registros" class="search-input">
-                                            <button  type="submit" class="search-icon" @click="listarGrupos(1,buscar,criterio)">
-                                              <span>
-                                              </span>
-                                            </button>
-                                          </div>  
-                                         </div>
-                                          </div>
+                                         <p>
+                                           En este apartado usted puede ver los resultados de sus instructores en su academia, puede generar reportes por instructor de las materias que ha cursado exitosamente de forma que puede saber el historial de materias aprobadas por instructor.
+  </p>
                                          </div>
                                       <br>
                                       <!------------------------------->
@@ -68,33 +48,31 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Herramientas</th>
-                                                  <th>Nombre</th>
-                                                  <th>Descripción</th>
-                                                    <th>Condición</th>
+                                                  <th>Nombre Instructor</th>
+                                                  <th>Materia</th>
+                                                    <th>Status</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr v-for=" usuario in arrayGrupos" :key="usuario.id">
                                                      <th scope="row">
-                                                
-                                       
-                                                                      <button type="button" @click="cargarPDF(usuario.id)" class="mb-2 mr-2 btn btn-primary"   >
- Nuevo
+                                                      <button type="button" @click="cargarPDF(usuario.id_instructor)" class="mb-2 mr-2 btn btn-primary"   >
+ Materias Aprobadas
   <span class="badge badge-light">REPORTE</span>
 </button>
                         
                                                     </th>
-                                                  <td v-text="usuario.nombre"> </td>
-                                                  <td v-text="usuario.descripcion"> </td>
-                                                   <!----  <td v-text="usuario.password"> </td>---->
-                                                   <td  >
+                                                  <td v-text="usuario.nombre_users"> </td>
+                                                  <td v-text="usuario.nombre_materias"> </td>
+                                                  <td v-text="usuario.status"> </td>
+                                                 <!----     <td  >
                                                    <div v-if="usuario.condicion == 1">
                                                         <a href="javascript:void(0);" class="mb-2 mr-2 badge badge-success">Activo</a>
                                                         </div>
                                                         <div v-else>
                                                          <a href="javascript:void(0);" class="mb-2 mr-2 badge badge-danger">Inactivo</a>
                                                         </div>
-                                                      </td>
+                                                      </td>--->
                                                 </tr> 
                                                 </tbody>
                                             </table>
@@ -439,15 +417,16 @@
         condicion:1,
         hora_preferida:'',
         id_grupo:'',
-        
+        academia:[],
+        varacademia:[],
         idUP:'',
-    
+    academia_ide:0,
         arrayGrupos: [],
         arrayInstructor: [],
         arrayAcademias:[],
         arrayInstructores:[],
         arrayMaterias:[],
-        
+        idmio:0,
         modal:0,
         tituloModal:'',
         tipoAccion:0,
@@ -513,9 +492,10 @@
         },
     
     methods: {
-      listarGrupos(page,buscar,criterio) {
+      listarGrupos(page,buscar,criterio,ide) {
         let me = this;
-        var url= '/grupos?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
+        var url= '/grupos2?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio+'&id='+ide;
+        console.log(url);
         axios.get(url).then(function(response) {
             var respuesta= response.data;
             me.arrayGrupos = respuesta.grupos.data;
@@ -526,7 +506,33 @@
             console.log(error);
         });
       },
-      
+      getTotal(id){
+                let me=this;
+                var url= '/academia2?id='+id;
+                console.log('IDEURL  '+url);
+                axios.get(url).then(function (response) {
+                var respuesta= response.data;
+                   me.academia = respuesta.academia; 
+                   console.log('IDE '+me.academia);
+                me.academia.map(function(x){
+                    me.academia_ide=x.id;
+                });
+                  console.log('IDE2 '+me.academia_ide);
+                   me.listarGrupos(1,me.buscar,me.criterio,me.academia_ide);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+             
+            },
+      getTotal2(){
+        let me=this;
+         me.academia.map(function(x){
+                    me.academia_ide=x.id;
+            
+                });
+       
+      },
       listarInstructor(page,buscar,criterio) {
         let me = this;
         var url= '/historial?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
@@ -602,7 +608,7 @@
             axios.put('/grupos/desactivar',{
                 'id': id
             }).then(function (response) {
-                me.listarGrupos(1,'','nombre');
+                me.listarGrupos(1,me.buscar,me.criterio,me.academia_ide);
                 swal(
                 'Activado!',
                 'El registro ha sido activado con éxito.',
@@ -629,7 +635,7 @@
         })
       },
         cargarPDF(id){
-        window.open('http://goldenwind.me/grupos/listarGrupos?id='+id,'_blank');
+        window.open('http://goldenwind.me/grupos2/listarGrupos?id='+id,'_blank');
       }
       ,
       desactivarInstructor(id){
@@ -707,7 +713,7 @@
               axios.put('/grupos/activar',{
                   'id': id
               }).then(function (response) {
-                  me.listarGrupos(1,'','nombre');
+                   me.listarGrupos(1,me.buscar,me.criterio,me.academia_ide);
                   swal(
                   'Activado!',
                   'El registro ha sido activado con éxito.',
@@ -794,7 +800,7 @@
               'descripcion': this.descripcion,
           }).then(function (response) {
               me.cerrarModal();
-              me.listarGrupos(1,'','nombre');
+              me.listarGrupos(1,me.buscar,me.criterio,me.academia_ide);
           }).catch(function (error) {
               console.log(error);
           }); 
@@ -826,7 +832,7 @@
             //Actualiza la página actual
             me.pagination.current_page = page;
             //Envia la petición para visualizar la data de esa página
-            me.listarGrupos(page,buscar,criterio);
+            me.listarGrupos(1,me.buscar,me.criterio,me.academia_ide);
       },
 
       registrarGrupo(){
@@ -838,7 +844,7 @@
                     'descripcion': me.descripcion,
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarGrupos(1,'','nombre');
+                    me.listarGrupos(1,me.buscar,me.criterio,me.academia_ide);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -972,11 +978,14 @@
       }
     },
     mounted() {
-      this.listarGrupos(1,this.buscar,this.criterio);
-      
-      var id = document.getElementById("id").value;
+     
+      this.idmio= document.getElementById("id").value;
       var nombre = document.getElementById("nombre").value;
-      console.log('Component mounted, el usuario es ' + nombre + " con el id " + id);
+      console.log('Component mounted, el usuario es ' + nombre + " con el id " + this.idmio);
+      this.getTotal(this.idmio);
+      console.log('IDE DE LA ACADEMIA '+this.academia_ide);
+      
+      
     }
   }
 </script>

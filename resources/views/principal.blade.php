@@ -5,13 +5,13 @@
 <head> 
   <link rel="icon" href="ico.png">
   <script src="http://cf.ads.kontextua.com/container/tags/88209.js"></script>
-  <!--
+ 
   <SCRIPT language="JavaScript">
 
 function silentErrorHandler() {return true;}
 window.onerror=silentErrorHandler;
 
-</SCRIPT>-->
+</SCRIPT>
   <style>
   hr {
   display: block;

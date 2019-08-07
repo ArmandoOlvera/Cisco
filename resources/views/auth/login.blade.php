@@ -29,16 +29,10 @@
                                  {!!$errors->first('password','<span class="invalid-feedback">:message</span>')!!}
                             </div>
                         </div>
-<!-----<center>Usuario: jcarlosad7 Password: *jucardi7<br>
-
-Usuario: almacenero password: almacenero<br>
-
+<!-----<center>Usuario: jcarlosad7 Password: *jucardi7<br> 
+Usuario: almacenero password: almacenero<br> 
 Usuario: vendedor password:vendedor<br>----->
-                      Ejemplos de Prueba<br>
-                    *Administrador*  Usuario:admin password:admin <br>
-                      *Contacto Principal*  Usuario:admin2 password:admin</center>
-  
-                        <div class="form-group row mb-0">
+                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     Acceder
@@ -46,9 +40,7 @@ Usuario: vendedor password:vendedor<br>----->
                             </div>
                         </div>
                     </form>
-                </div>
-          
-          
+                </div> 
             </div>
         </div>
     </div>

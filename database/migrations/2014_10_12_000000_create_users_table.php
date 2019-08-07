@@ -47,7 +47,7 @@ class CreateUsersTable extends Migration
       Schema::create('academia', function (Blueprint $table) {
           // $table->increments('idusuario');   
           $table->increments('id');
-          $table->integer('id_usuario')->unsigned()->nullable();
+          $table->integer('id_usuario')->unique()->unsigned()->nullable();
          $table->string('nombre',100);
            $table->string('direccion',60); 
          $table->string('direccion2',60);

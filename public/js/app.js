@@ -2002,6 +2002,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2014,6 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
         value: '2'
       }],
       id: 0,
+      seen: false,
       id_usuario: 0,
       direccion: '',
       nombre: '',
@@ -2091,8 +2096,10 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.arrayAcademias = respuesta.academia.data;
         me.pagination = respuesta.pagination;
+        me.seen = false;
       })["catch"](function (error) {
         // handle error
+        me.seen = true;
         console.log(error);
       });
     },
@@ -2206,9 +2213,11 @@ __webpack_require__.r(__webpack_exports__);
         'url': this.url
       }).then(function (response) {
         me.cerrarModal();
+        me.seen = false;
         me.listarAcademias(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
+        me.seen = true;
       });
     },
     registrarAcademia: function registrarAcademia() {
@@ -2226,9 +2235,11 @@ __webpack_require__.r(__webpack_exports__);
         'url': this.url
       }).then(function (response) {
         me.cerrarModal();
+        me.seen = false;
         me.listarAcademias(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
+        me.seen = true;
       });
     },
     cerrarModal: function cerrarModal() {
@@ -2237,6 +2248,7 @@ __webpack_require__.r(__webpack_exports__);
       this.idrol = 0;
       this.nombre = '';
       this.usuario = '';
+      this.seen = false;
       this.direccion = '';
       this.id_usuario = '';
       this.password = '';
@@ -2253,6 +2265,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.direccion = '';
                   this.direccion2 = '';
                   this.modal = 1;
+                  this.seen = false;
                   this.idrol = 0;
                   this.nombre = '';
                   this.telefono = '';
@@ -2276,6 +2289,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.modal = 1;
                   this.tituloModal = 'Actualizar Academia';
                   this.tipoAccion = 2;
+                  this.seen = false;
                   this.id = data['id'];
                   this.id_usuario = data['id_usuario'];
                   this.pais = data['pais'];
@@ -3206,28 +3220,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -3250,7 +3242,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       fecha_inicio: '',
       id_materia: '',
       fecha_oc: ''
-    }, _defineProperty(_ref, "condicion", 1), _defineProperty(_ref, "hora_preferida", ''), _defineProperty(_ref, "id_grupo", ''), _defineProperty(_ref, "idUP", ''), _defineProperty(_ref, "arrayGrupos", []), _defineProperty(_ref, "arrayInstructor", []), _defineProperty(_ref, "arrayAcademias", []), _defineProperty(_ref, "arrayInstructores", []), _defineProperty(_ref, "arrayMaterias", []), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "tituloModal", ''), _defineProperty(_ref, "tipoAccion", 0), _defineProperty(_ref, "tipoAccion2", 0), _defineProperty(_ref, "usuario_id", 0), _defineProperty(_ref, "paginationR", {
+    }, _defineProperty(_ref, "condicion", 1), _defineProperty(_ref, "hora_preferida", ''), _defineProperty(_ref, "id_grupo", ''), _defineProperty(_ref, "academia", []), _defineProperty(_ref, "varacademia", []), _defineProperty(_ref, "idUP", ''), _defineProperty(_ref, "academia_ide", 0), _defineProperty(_ref, "arrayGrupos", []), _defineProperty(_ref, "arrayInstructor", []), _defineProperty(_ref, "arrayAcademias", []), _defineProperty(_ref, "arrayInstructores", []), _defineProperty(_ref, "arrayMaterias", []), _defineProperty(_ref, "idmio", 0), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "tituloModal", ''), _defineProperty(_ref, "tipoAccion", 0), _defineProperty(_ref, "tipoAccion2", 0), _defineProperty(_ref, "usuario_id", 0), _defineProperty(_ref, "paginationR", {
       'total': 0,
       'current_page': 0,
       'per_page': 0,
@@ -3306,9 +3298,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    listarGrupos: function listarGrupos(page, buscar, criterio) {
+    listarGrupos: function listarGrupos(page, buscar, criterio, ide) {
       var me = this;
-      var url = '/grupos?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/grupos2?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio + '&id=' + ide;
+      console.log(url);
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayGrupos = respuesta.grupos.data;
@@ -3316,6 +3309,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (error) {
         // handle error
         console.log(error);
+      });
+    },
+    getTotal: function getTotal(id) {
+      var me = this;
+      var url = '/academia2?id=' + id;
+      console.log('IDEURL  ' + url);
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.academia = respuesta.academia;
+        console.log('IDE ' + me.academia);
+        me.academia.map(function (x) {
+          me.academia_ide = x.id;
+        });
+        console.log('IDE2 ' + me.academia_ide);
+        me.listarGrupos(1, me.buscar, me.criterio, me.academia_ide);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getTotal2: function getTotal2() {
+      var me = this;
+      me.academia.map(function (x) {
+        me.academia_ide = x.id;
       });
     },
     listarInstructor: function listarInstructor(page, buscar, criterio) {
@@ -3384,7 +3400,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           axios.put('/grupos/desactivar', {
             'id': id
           }).then(function (response) {
-            me.listarGrupos(1, '', 'nombre');
+            me.listarGrupos(1, me.buscar, me.criterio, me.academia_ide);
             swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -3397,7 +3413,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     cargarPDF: function cargarPDF(id) {
-      window.open('http://goldenwind.me/grupos/listarGrupos?id=' + id, '_blank');
+      window.open('http://goldenwind.me/grupos2/listarGrupos?id=' + id, '_blank');
     },
     desactivarInstructor: function desactivarInstructor(id) {
       var _this2 = this;
@@ -3459,7 +3475,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           axios.put('/grupos/activar', {
             'id': id
           }).then(function (response) {
-            me.listarGrupos(1, '', 'nombre');
+            me.listarGrupos(1, me.buscar, me.criterio, me.academia_ide);
             swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -3516,7 +3532,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'descripcion': this.descripcion
       }).then(function (response) {
         me.cerrarModal();
-        me.listarGrupos(1, '', 'nombre');
+        me.listarGrupos(1, me.buscar, me.criterio, me.academia_ide);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3546,7 +3562,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       me.pagination.current_page = page; //Envia la petición para visualizar la data de esa página
 
-      me.listarGrupos(page, buscar, criterio);
+      me.listarGrupos(1, me.buscar, me.criterio, me.academia_ide);
     },
     registrarGrupo: function registrarGrupo() {
       var me = this;
@@ -3557,7 +3573,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'descripcion': me.descripcion
       }).then(function (response) {
         me.cerrarModal();
-        me.listarGrupos(1, '', 'nombre');
+        me.listarGrupos(1, me.buscar, me.criterio, me.academia_ide);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3687,10 +3703,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    this.listarGrupos(1, this.buscar, this.criterio);
-    var id = document.getElementById("id").value;
+    this.idmio = document.getElementById("id").value;
     var nombre = document.getElementById("nombre").value;
-    console.log('Component mounted, el usuario es ' + nombre + " con el id " + id);
+    console.log('Component mounted, el usuario es ' + nombre + " con el id " + this.idmio);
+    this.getTotal(this.idmio);
+    console.log('IDE DE LA ACADEMIA ' + this.academia_ide);
   }
 });
 
@@ -4136,6 +4153,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -4152,6 +4174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       nombre: '',
       descripcion: '',
       condicion: 0,
+      seen: false,
       id_academia: '',
       id_instructor: '',
       status: '',
@@ -4221,8 +4244,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var respuesta = response.data;
         me.arrayGrupos = respuesta.grupos.data;
         me.pagination = respuesta.pagination;
+        me.seen = false;
       })["catch"](function (error) {
         // handle error
+        me.seen = true;
         console.log(error);
       });
     },
@@ -4424,9 +4449,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'descripcion': this.descripcion
       }).then(function (response) {
         me.cerrarModal();
+        me.seen = false;
         me.listarGrupos(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
+        me.seen = true;
       });
     },
     actualizarInstructor: function actualizarInstructor() {
@@ -4465,9 +4492,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'descripcion': me.descripcion
       }).then(function (response) {
         me.cerrarModal();
+        me.seen = false;
         me.listarGrupos(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
+        me.seen = true;
       });
     },
     registrarInstructor: function registrarInstructor() {
@@ -4483,12 +4512,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'id_grupo': me.id_grupo
       }).then(function (response) {
         me.cerrarModal();
+        me.seen = false;
         me.listarInstructor(1, me.id_grupo, 'id_grupo');
       })["catch"](function (error) {
         console.log(error);
+        me.seen = true;
       });
     },
     cerrarModal: function cerrarModal() {
+      this.seen = false;
+
       if (this.tipoAccion == 4) {
         this.modal = 1;
         this.tituloModal = 'Incritos';
@@ -4515,6 +4548,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 {
                   this.nombre = '';
                   this.descripcion = '';
+                  this.seen = false;
                   this.tipoAccion = 1;
                   this.modal = 1;
                   this.tituloModal = 'Registrar Grupo';
@@ -4527,6 +4561,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   this.modal = 1;
                   this.tituloModal = 'Actualizar Grupo';
                   this.tipoAccion = 2;
+                  this.seen = false;
                   this.idUP = data['id'];
                   this.nombre = data['nombre'];
                   this.descripcion = data['descripcion'];
@@ -5355,6 +5390,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5366,7 +5403,7 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Contacto Principal',
         value: '2'
       }],
-      seen: true,
+      seen: false,
       nombre: '',
       idrol: 0,
       telefono: '',
@@ -6191,6 +6228,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -44099,7 +44140,11 @@ var render = function() {
                           ],
                           2
                         )
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.seen
+                        ? _c("div", { staticClass: "form-row" }, [_vm._m(3)])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-footer" }, [
@@ -44222,6 +44267,28 @@ var staticRenderFns = [
         _c("th", [_vm._v("Condición")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+      [
+        _vm._v(
+          "\n                            No se ha guardado la academia, esto puede ser causado por:\n                            "
+        ),
+        _c("br"),
+        _vm._v(
+          "*No se ingresaron todos los datos correctamente\n                            "
+        ),
+        _c("br"),
+        _vm._v(
+          " *Contacto Principal ya asignado a una academia \n                          "
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -44812,127 +44879,7 @@ var render = function() {
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
-              _c("div", { staticClass: "col-lg-12" }, [
-                _c("div", { staticClass: "col-mb-4" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.criterio,
-                          expression: "criterio"
-                        }
-                      ],
-                      staticClass: "  btn btn-focus",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.criterio = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { staticClass: "dropdown-item" }, [
-                        _vm._v("nombre")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { staticClass: "dropdown-item" }, [
-                        _vm._v("descripcion")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "col-mb-8",
-                    staticStyle: { position: "relative" }
-                  },
-                  [
-                    _c("div", { staticClass: "search-wrapper active" }, [
-                      _c("div", { staticClass: "input-holder" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.buscar,
-                              expression: "buscar"
-                            }
-                          ],
-                          staticClass: "search-input",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Escriba para buscar registros"
-                          },
-                          domProps: { value: _vm.buscar },
-                          on: {
-                            keyup: function($event) {
-                              if (
-                                !$event.type.indexOf("key") &&
-                                _vm._k(
-                                  $event.keyCode,
-                                  "enter",
-                                  13,
-                                  $event.key,
-                                  "Enter"
-                                )
-                              ) {
-                                return null
-                              }
-                              return _vm.listarGrupos(
-                                1,
-                                _vm.buscar,
-                                _vm.criterio
-                              )
-                            },
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.buscar = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "search-icon",
-                            attrs: { type: "submit" },
-                            on: {
-                              click: function($event) {
-                                return _vm.listarGrupos(
-                                  1,
-                                  _vm.buscar,
-                                  _vm.criterio
-                                )
-                              }
-                            }
-                          },
-                          [_c("span")]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ]),
+              _vm._m(1),
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
@@ -44952,12 +44899,12 @@ var render = function() {
                               attrs: { type: "button" },
                               on: {
                                 click: function($event) {
-                                  return _vm.cargarPDF(usuario.id)
+                                  return _vm.cargarPDF(usuario.id_instructor)
                                 }
                               }
                             },
                             [
-                              _vm._v("\n Nuevo\n  "),
+                              _vm._v("\n Materias Aprobadas\n  "),
                               _c("span", { staticClass: "badge badge-light" }, [
                                 _vm._v("REPORTE")
                               ])
@@ -44966,37 +44913,20 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(usuario.nombre) }
+                          domProps: {
+                            textContent: _vm._s(usuario.nombre_users)
+                          }
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(usuario.descripcion) }
+                          domProps: {
+                            textContent: _vm._s(usuario.nombre_materias)
+                          }
                         }),
                         _vm._v(" "),
-                        _c("td", [
-                          usuario.condicion == 1
-                            ? _c("div", [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "mb-2 mr-2 badge badge-success",
-                                    attrs: { href: "javascript:void(0);" }
-                                  },
-                                  [_vm._v("Activo")]
-                                )
-                              ])
-                            : _c("div", [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "mb-2 mr-2 badge badge-danger",
-                                    attrs: { href: "javascript:void(0);" }
-                                  },
-                                  [_vm._v("Inactivo")]
-                                )
-                              ])
-                        ])
+                        _c("td", {
+                          domProps: { textContent: _vm._s(usuario.status) }
+                        })
                       ])
                     }),
                     0
@@ -46447,7 +46377,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [_c("span", [_vm._v("Buscar por:")])])
+    return _c("div", { staticClass: "col-lg-12" }, [
+      _c("br"),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n                                           En este apartado usted puede ver los resultados de sus instructores en su academia, puede generar reportes por instructor de las materias que ha cursado exitosamente de forma que puede saber el historial de materias aprobadas por instructor.\n  "
+        )
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -46457,11 +46395,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Herramientas")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nombre")]),
+        _c("th", [_vm._v("Nombre Instructor")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Descripción")]),
+        _c("th", [_vm._v("Materia")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Condición")])
+        _c("th", [_vm._v("Status")])
       ])
     ])
   },
@@ -48195,6 +48133,10 @@ var render = function() {
                         ])
                       : _vm._e(),
                     _vm._v(" "),
+                    _vm.seen
+                      ? _c("div", { staticClass: "form-row" }, [_vm._m(5)])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("div", { staticClass: "modal-footer" }, [
                       _c(
                         "button",
@@ -48363,6 +48305,24 @@ var staticRenderFns = [
         _c("th", [_vm._v("Condición")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+      [
+        _vm._v(
+          "\n                            No se ha guardado el registro, esto puede ser causado por:\n                            "
+        ),
+        _c("br"),
+        _vm._v(
+          "*No se ingresaron todos los datos correctamente\n                          "
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -49838,11 +49798,9 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-row" }, [
-                        _vm.seen
-                          ? _c("div", { staticClass: "form-row" }, [_vm._m(3)])
-                          : _vm._e()
-                      ])
+                      _vm.seen
+                        ? _c("div", { staticClass: "form-row" }, [_vm._m(3)])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-footer" }, [
@@ -49956,10 +49914,13 @@ var staticRenderFns = [
       "div",
       { staticClass: "alert alert-danger", attrs: { role: "alert" } },
       [
-        _vm._v("No se ha guardado la materia, esto puede ser causado por:"),
+        _vm._v(
+          "\n                            No se ha guardado la materia, esto puede ser causado por:\n                            "
+        ),
         _c("br"),
-        _vm._v("*No se ingresaron todos los datos correctamente"),
-        _c("br")
+        _vm._v(
+          "*No se ingresaron todos los datos correctamente\n                           \n                          "
+        )
       ]
     )
   }
@@ -50170,89 +50131,71 @@ var render = function() {
                         "div",
                         { staticClass: "inbox_chat" },
                         _vm._l(_vm.arrayTickets, function(ticket) {
-                          return ticket.condicion == 1
-                            ? _c(
+                          return _c(
+                            "div",
+                            { key: ticket.id, staticClass: "chat_list  " },
+                            [
+                              _c(
                                 "div",
                                 {
-                                  key: ticket.id,
-                                  staticClass: "chat_list  ",
-                                  class: [
-                                    ticket.id == _vm.id_ticket_actual
-                                      ? "active_chat"
-                                      : ""
-                                  ]
+                                  staticClass: "chat_people",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.listarMensajes(ticket.ticketid)
+                                    }
+                                  }
                                 },
                                 [
+                                  _vm._m(3, true),
+                                  _vm._v(" "),
                                   _c(
                                     "div",
-                                    {
-                                      staticClass: "chat_people",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.listarMensajes(
-                                            ticket.ticketid
-                                          )
-                                        }
-                                      }
-                                    },
+                                    { staticClass: "chat_ib" },
                                     [
-                                      _c("span", {
-                                        domProps: {
-                                          textContent: _vm._s(ticket.ticketid)
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _vm._m(3, true),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "chat_ib" },
-                                        [
-                                          ticket.nombre == _vm.nombre_cuenta
-                                            ? [
-                                                _c("h5", {
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      ticket.nombre_admin
-                                                    )
-                                                  }
-                                                })
-                                              ]
-                                            : [
-                                                _c("h5", {
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      ticket.nombre
-                                                    )
-                                                  }
-                                                })
-                                              ],
-                                          _vm._v(" "),
-                                          ticket.nuevo == 1
-                                            ? [
-                                                _c(
-                                                  "span",
-                                                  { staticClass: "chat_date" },
-                                                  [_vm._v("NUEVO")]
+                                      ticket.nombre == _vm.nombre_cuenta
+                                        ? [
+                                            _c("h5", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  ticket.nombre_admin
                                                 )
-                                              ]
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _c("b", [_vm._v("Asunto:")]),
-                                          _vm._v(" "),
-                                          _c("p", {
-                                            domProps: {
-                                              textContent: _vm._s(ticket.asunto)
-                                            }
-                                          })
-                                        ],
-                                        2
-                                      )
-                                    ]
+                                              }
+                                            })
+                                          ]
+                                        : [
+                                            _c("h5", {
+                                              domProps: {
+                                                textContent: _vm._s(
+                                                  ticket.nombre
+                                                )
+                                              }
+                                            })
+                                          ],
+                                      _vm._v(" "),
+                                      ticket.nuevo == 1
+                                        ? [
+                                            _c(
+                                              "span",
+                                              { staticClass: "chat_date" },
+                                              [_vm._v("NUEVO")]
+                                            )
+                                          ]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c("b", [_vm._v("Asunto:")]),
+                                      _vm._v(" "),
+                                      _c("p", {
+                                        domProps: {
+                                          textContent: _vm._s(ticket.asunto)
+                                        }
+                                      })
+                                    ],
+                                    2
                                   )
                                 ]
                               )
-                            : _vm._e()
+                            ]
+                          )
                         }),
                         0
                       )
@@ -51265,7 +51208,7 @@ var render = function() {
                           { staticClass: "col-md-4 mb-3" },
                           [
                             _c("label", { attrs: { for: "rol" } }, [
-                              _vm._v("Select")
+                              _vm._v("Rol")
                             ]),
                             _vm._v(" "),
                             [
@@ -51978,11 +51921,15 @@ var staticRenderFns = [
       "div",
       { staticClass: "alert alert-danger", attrs: { role: "alert" } },
       [
-        _vm._v("No se ha guardado el usuario, esto puede ser causado por:"),
+        _vm._v(
+          "\n                            No se ha guardado el usuario, esto puede ser causado por:\n                            "
+        ),
         _c("br"),
-        _vm._v("*No se ingresaron todos los datos correctamente"),
+        _vm._v(
+          "*No se ingresaron todos los datos correctamente\n                            "
+        ),
         _c("br"),
-        _vm._v(" *Nombre de usuario ya existente ")
+        _vm._v(" *Nombre de usuario ya existente \n                          ")
       ]
     )
   }
@@ -64172,12 +64119,6 @@ Vue.component('tickets-component', __webpack_require__(/*! ./components/TicketsC
 Vue.component('grupos2-component', __webpack_require__(/*! ./components/Grupos3Component.vue */ "./resources/js/components/Grupos3Component.vue")["default"]); //Para recibir al contacto principal con una pagina guia simple
 
 Vue.component('dashboard2-component', __webpack_require__(/*! ./components/ExampleComponent2.vue */ "./resources/js/components/ExampleComponent2.vue")["default"]);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 var app = new Vue({
   el: '#app',
   data: {

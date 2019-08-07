@@ -161,11 +161,13 @@
                                     
                                         
                                     </div>
-                         <div class="form-row">
-                       <div class="form-row" v-if="seen"> 
-                          <div class="alert alert-danger" role="alert" >No se ha guardado la materia, esto puede ser causado por:<br>*No se ingresaron todos los datos correctamente<br> </div>
+                      <div class="form-row" v-if="seen"> 
+                          <div class="alert alert-danger" role="alert" >
+                            No se ha guardado la materia, esto puede ser causado por:
+                            <br>*No se ingresaron todos los datos correctamente
+                           
+                          </div>
                       </div>
-                         </div>
                                           </div>
                   
             <div class="modal-footer">
@@ -202,7 +204,7 @@
       { text: 'Contacto Principal', value: '2' },
       
     ],
-        seen:true,
+        seen:false,
         nombre: '',
         idrol: 0,
         telefono: '',

@@ -68,9 +68,9 @@
           </div>
           <div class="inbox_chat">
             
-            <div class="chat_list  " v-for=" ticket in arrayTickets" :key="ticket.id" v-if="ticket.condicion==1" :class="[ticket.id == id_ticket_actual ? 'active_chat' : '']">
+            <div class="chat_list  " v-for=" ticket in arrayTickets" :key="ticket.id" >
               <div class="chat_people" @click="listarMensajes(ticket.ticketid)">
-                <span v-text="ticket.ticketid"></span>
+               <!---- <span v-text="ticket.ticketid"></span>-->
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
                   <template v-if="ticket.nombre==nombre_cuenta" >

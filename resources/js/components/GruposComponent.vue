@@ -400,7 +400,12 @@
                             </div>
 
                     </div>
-                  
+                   <div class="form-row" v-if="seen"> 
+                          <div class="alert alert-danger" role="alert" >
+                            No se ha guardado el registro, esto puede ser causado por:
+                            <br>*No se ingresaron todos los datos correctamente
+                          </div>
+                      </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"  @click="cerrarModal()" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" v-if="tipoAccion2==41" @click="registrarInstructor()" >Guardar I</button>
@@ -440,7 +445,7 @@
         nombre: '',
         descripcion: '',
         condicion: 0,
-        
+        seen:false,
         id_academia:'',
         id_instructor:'',
         status:'',
@@ -531,9 +536,11 @@
             var respuesta= response.data;
             me.arrayGrupos = respuesta.grupos.data;
             me.pagination= respuesta.pagination;
+          me.seen=false;
         })
         .catch(function(error) {
             // handle error
+          me.seen=true;
             console.log(error);
         });
       },
@@ -805,9 +812,11 @@
               'descripcion': this.descripcion,
           }).then(function (response) {
               me.cerrarModal();
+            me.seen=false;
               me.listarGrupos(1,'','nombre');
           }).catch(function (error) {
               console.log(error);
+            me.seen=true;
           }); 
       },
       
@@ -849,9 +858,11 @@
                     'descripcion': me.descripcion,
                 }).then(function (response) {
                     me.cerrarModal();
+                  me.seen=false;
                     me.listarGrupos(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
+                  me.seen=true;
                 });
       },
       
@@ -869,14 +880,16 @@
               'id_grupo': me.id_grupo,
           }).then(function (response) {
               me.cerrarModal();
+            me.seen=false;
               me.listarInstructor(1,me.id_grupo,'id_grupo');
           }).catch(function (error) {
               console.log(error);
+            me.seen=true;
           });
       },
       
       cerrarModal(){
-                    
+                    this.seen=false;
             if(this.tipoAccion==4){
                 this.modal=1;
                 this.tituloModal='Incritos';
@@ -902,7 +915,7 @@
                 case 'registrar':{
                     this.nombre='';
                     this.descripcion='';
-                  
+                  this.seen=false;
                     this.tipoAccion = 1;
                     this.modal=1;
                     this.tituloModal='Registrar Grupo';
@@ -913,7 +926,7 @@
                     this.modal=1;
                     this.tituloModal='Actualizar Grupo';
                     this.tipoAccion=2;
-                  
+                  this.seen=false;
                     this.idUP= data['id'];
                   
                     this.nombre=data['nombre'];

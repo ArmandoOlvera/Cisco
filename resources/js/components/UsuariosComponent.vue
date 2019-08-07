@@ -170,7 +170,7 @@
                     <div class="modal-body">
                                     <div class="form-row">
                                         <div class="col-md-4 mb-3"> 
-                                            <label for="rol" class="">Select</label>
+                                            <label for="rol" class="">Rol</label>
                                           <template>
                                            <select v-model="idrol"  class="form-control">
                                               <option value="0" :selected="true" >Selecciona una opción</option>
@@ -305,7 +305,11 @@
                                         </div> 
                                     </div>  
                         <div class="form-row" v-if="seen"> 
-                          <div class="alert alert-danger" role="alert" >No se ha guardado el usuario, esto puede ser causado por:<br>*No se ingresaron todos los datos correctamente<br> *Nombre de usuario ya existente </div>
+                          <div class="alert alert-danger" role="alert" >
+                            No se ha guardado el usuario, esto puede ser causado por:
+                            <br>*No se ingresaron todos los datos correctamente
+                            <br> *Nombre de usuario ya existente 
+                          </div>
                       </div>
                                           </div>
                   

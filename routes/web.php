@@ -61,7 +61,9 @@ Route::group(['middleware'=>['auth']],function(){
       Route::put('/grupos/actualizar', 'GruposController@update');
       Route::get('/grupos/listarGrupos', 'GruposController@listarPDF')->name('grupos_pdf');
   //Seccion para los grupos por la parte del contacto principal
-      Route::get('/grupos2', 'Grupos2Controller@index'); 
+      Route::get('/grupos2', 'Grupos3Controller@index');
+      Route::get('/grupos2/listarGrupos', 'Grupos3Controller@listarPDF')->name('grupos2_pdf');
+      Route::get('/academia2', 'Grupos3Controller@obteneracademia'); 
   //Seccion para los historiales de grupos
       Route::get('/historial', 'HistorialController@index');
       Route::post('/historial/registrar', 'HistorialController@store');

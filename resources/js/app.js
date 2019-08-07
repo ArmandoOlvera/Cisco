@@ -35,7 +35,7 @@ Vue.component('tickets-component', require('./components/TicketsComponent.vue').
 Vue.component('grupos2-component', require('./components/Grupos3Component.vue').default);
 //Para recibir al contacto principal con una pagina guia simple
 Vue.component('dashboard2-component', require('./components/ExampleComponent2.vue').default);
-const app = new Vue({
+ const app = new Vue({
     el: '#app',
   data:{
     menu:0
