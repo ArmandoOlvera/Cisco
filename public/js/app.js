@@ -44658,10 +44658,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "widget-content-left" }, [
-      _c("div", { staticClass: "widget-heading" }, [_vm._v("Total Orders")]),
+      _c("div", { staticClass: "widget-heading" }, [_vm._v("Aprobados")]),
       _vm._v(" "),
       _c("div", { staticClass: "widget-subheading" }, [
-        _vm._v("Last year expenses")
+        _vm._v("Total de alumnos aprobados")
       ])
     ])
   },
@@ -44673,7 +44673,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "widget-heading" }, [_vm._v("Reprobados")]),
       _vm._v(" "),
       _c("div", { staticClass: "widget-subheading" }, [
-        _vm._v("Revenue streams")
+        _vm._v("Total de alumnos reprobados")
       ])
     ])
   },
@@ -48328,7 +48328,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Guardar I")]
+                            [_vm._v("Guardar ")]
                           )
                         : _vm._e(),
                       _vm._v(" "),
@@ -48344,7 +48344,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Actualizar I")]
+                            [_vm._v("Actualizar ")]
                           )
                         : _vm._e(),
                       _vm._v(" "),
@@ -48360,7 +48360,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Guardar G")]
+                            [_vm._v("Guardar ")]
                           )
                         : _vm._e(),
                       _vm._v(" "),
@@ -48376,7 +48376,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Actualizar G")]
+                            [_vm._v("Actualizar ")]
                           )
                         : _vm._e()
                     ])

@@ -408,10 +408,10 @@
                       </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"  @click="cerrarModal()" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" v-if="tipoAccion2==41" @click="registrarInstructor()" >Guardar I</button>
-              <button type="button" class="btn btn-primary" v-if="tipoAccion2==42" @click="actualizarInstructor()" >Actualizar I</button>
-               <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="registrarGrupo()" >Guardar G</button>
-              <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarGrupo()" >Actualizar G</button>
+                <button type="button" class="btn btn-primary" v-if="tipoAccion2==41" @click="registrarInstructor()" >Guardar </button>
+              <button type="button" class="btn btn-primary" v-if="tipoAccion2==42" @click="actualizarInstructor()" >Actualizar </button>
+               <button type="button" class="btn btn-primary" v-if="tipoAccion==1" @click="registrarGrupo()" >Guardar </button>
+              <button type="button" class="btn btn-primary" v-if="tipoAccion==2" @click="actualizarGrupo()" >Actualizar </button>
             </div>
           
           

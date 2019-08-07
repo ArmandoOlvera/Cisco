@@ -94,8 +94,8 @@
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-heading">Total Orders</div>
-                                                <div class="widget-subheading">Last year expenses</div>
+                                                <div class="widget-heading">Aprobados</div>
+                                                <div class="widget-subheading">Total de alumnos aprobados</div>
                                             </div>
                                             <div class="widget-content-right">
                                    
@@ -114,7 +114,7 @@
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
                                                 <div class="widget-heading">Reprobados</div>
-                                                <div class="widget-subheading">Revenue streams</div>
+                                                <div class="widget-subheading">Total de alumnos reprobados</div>
                                             </div>
                                             <div class="widget-content-right">
                                              
